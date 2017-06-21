@@ -1,0 +1,7 @@
+#/bin/bash 
+# Setting up AMI tools , 
+sudo yum install -y ruby
+sudo wget https://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.noarch.rpm
+ sudo yum install ec2-ami-tools.noarch.rpm
+ ec2-ami-tools-version
+ 
