@@ -9,6 +9,9 @@ exit
 fi
 echo "Please enter your commit msg here"
 read msg
+echo "enter directory path"
+read dir
+cd $dir
 git init .
 git add . 
 git commit -m "$msg"
