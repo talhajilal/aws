@@ -1,0 +1,12 @@
+1- How to setup vagrant on windows
+a- Install oracle virtual box, 
+b- install vagrant 
+c- create a new directory " I created under c:/vagrant/firstproject"
+d- download first vagrant image " vagrant box add precise32 http://files.vagrantup.com/precise32.box --provider virtualbox" 
+e- vagrant box list
+f- vagrant init precise32
+g- dir
+Vagrantfile
+h- Now edit this file 
+Vagrant.configure("2") do |config|
+ config.vm.box = "vagrant/firstproject    # This path should be similar to the path you have created a new vagrant box"
