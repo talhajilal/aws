@@ -10,3 +10,16 @@ Vagrantfile
 h- Now edit this file 
 Vagrant.configure("2") do |config|
  config.vm.box = "vagrant/firstproject    # This path should be similar to the path you have created a new vagrant box"
+
+
+
+2- Working on Packer, 
+1- Packer installation with choco 
+a- choco install choco first instructions are here, 
+https://chocolatey.org/install#requirements
+b- Install packer with this command . run cmd with administrative mode
+choco install packer
+
+Userful instruction for packer, for continue my study.
+
+https://www.packer.io/intro/getting-started/build-image.html
