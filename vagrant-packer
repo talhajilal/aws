@@ -17,6 +17,11 @@ Vagrant.configure("2") do |config|
 1- Packer installation with choco 
 a- choco install choco first instructions are here, 
 https://chocolatey.org/install#requirements
+run this command as administrator 
+@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+
+
+
 b- Install packer with this command . run cmd with administrative mode
 choco install packer
 
