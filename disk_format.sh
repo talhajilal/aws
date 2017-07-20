@@ -17,3 +17,17 @@ echo -e "o\nn\np\n1\n\n\nw" | fdisk $i
 done
 for i in `cat /tmp/disk_list`; do echo "" ; ll $i* 
 done
+###################### Creating Mount point ###################
+# /tmp/mount_point
+echo data1 > /tmp/mount_point
+echo data2 >> /tmp/mount_point
+
+set -f
+IFS='
+'
+set -- $( cat /tmp/mount_point)
+for i in `cat /tmp/disk_list`
+do
+  printf "%s %s\n" "$i" "$1"
+  shift
+done
