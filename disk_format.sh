@@ -1,5 +1,5 @@
 #/bin/bash 
-#cp /etc/fstab /etc/fstab-`date +%d%m%d`
+cp /etc/fstab /etc/fstab-`date +%d%m%d`
 # Step 1 Obtain list of drives # 
 sudo fdisk  -l |  grep dev | grep -v xvda | grep -i disk  | awk '{print $2}' | awk -F ':' '{print $1}'  >/tmp/disks_list
 
@@ -16,12 +16,17 @@ do echo ""
 #) | sudo fdisk
 echo -e "o\nn\np\n1\n\n\nw" | fdisk $i 
 done
-for i in `cat /tmp/disk_list`; do echo "" ; ll $i* 
-done
 ###################### Creating Mount point ###################
 # /tmp/mount_point
 # /tmp/formated_disks   formated disks
-blkid  |grep -v xvda | awk -F ':' '{print $1}' > /tmp/formated_disks
+fdisk -l | grep dev | grep -v xvda | grep -v -i disk | awk '{print $1}' > /tmp/formated_disks
+
+#### Creating filesystem #### 
+for i in `cat /tmp/formated_disks
+do echo "" 
+mkfs.xfs -f $i 
+done
+#############################
 echo data1 > /tmp/mount_point
 echo data2 >> /tmp/mount_point
 
@@ -31,7 +36,7 @@ IFS='
 set -- $( cat /tmp/mount_point)
 for i in `cat /tmp/formated_disks`
 do
-  printf "%s %s\n" "$i" "$1   xfs     defaults,noatime  0"  >> /etc/fstab
+  printf "%s %s\n" "$i" "/$1   xfs     defaults,noatime  0"  >> /etc/fstab
   shift
 done
 
