@@ -25,17 +25,15 @@ done
 fdisk -l | grep dev | grep -v xvda | grep -v -i disk | awk '{print $1}' > /tmp/formated_disks
 
 #### Creating filesystem #### 
-for i in `cat /tmp/formated_disks
-do echo "" 
+for i in `cat /tmp/formated_disks`
+do echo " " 
 mkfs.xfs -f $i 
 done
 #############################
 echo data1 > /tmp/mount_point
 echo data2 >> /tmp/mount_point
-
-#set -f
-#IFS='
-#'
+IFS='
+'
 set -- $( cat /tmp/mount_point)
 for i in `cat /tmp/formated_disks`
 do
