@@ -1,1 +1,5 @@
-aws ec2 run-instances --image-id ami-58f1e621 --security-group-ids sg-7fefec04 --count 1 --instance-type t2.micro --key-name ami-testing-key --query 'Instances[0].InstanceId' "i-ec3e1e2k"
+
+AMI_ID=ami-58f1e621
+Security_group_ids=sg-7fefec04
+ssh_key=ami-testing-key
+aws ec2 run-instances --image-id $AMI_ID --security-group-ids $Security_group_ids --count 1 --instance-type t2.micro --key-name $ssh_key --query 'Instances[0].InstanceId' "i-ec3e1e2k"
