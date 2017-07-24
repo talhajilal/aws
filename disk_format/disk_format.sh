@@ -1,7 +1,22 @@
-set -f
-IFS=`
-`
 #/bin/bash 
+# Script coded Date 21-7-2017" T
+#Coded by Talha Jilal" 
+echo "No warranty of any data lost this is an open source code"
+echo "..............................absolute no warranty of any data lost......."
+echo " Ctrl + C if you don't want to conte in next 5 Seceonds"
+sleep 1
+echo "1"
+sleep 1
+echo "2"
+sleep 1 
+echo "3"
+sleep 1
+echo "4"
+sleep 1 
+echo "5"
+
+mkdir /data1 
+mkdir /data2
 cp /etc/fstab /etc/fstab-`date +%d%m%d`
 # Step 1 Obtain list of drives # 
 sudo fdisk  -l |  grep dev | grep -v xvda | grep -i disk  | awk '{print $2}' | awk -F ':' '{print $1}'  >/tmp/disks_list
@@ -40,3 +55,4 @@ do
   printf "%s %s\n" "$i" "/$1   xfs     defaults,noatime  0"  >> /etc/fstab
   shift
 done
+mount -a
