@@ -1,5 +1,8 @@
-
-AMI_ID=ami-58f1e621
-Security_group_ids=sg-7fefec04
+#/bin/bash
+# Writing script for aws automation
+# This script create aws AMI and help to do automation
+id=ami-58f1e621
+sec_grp=sg-7fefec04
+in_type=t2.micro
 ssh_key=ami-testing-key
-aws ec2 run-instances --image-id $AMI_ID --security-group-ids $Security_group_ids --count 1 --instance-type t2.micro --key-name $ssh_key --query 'Instances[0].InstanceId' "i-ec3e1e2k"
+aws ec2 run-instances --image-id $id --security-group-ids $sec_grp --count 1 --instance-type $in_type --key-name $ssh_key
