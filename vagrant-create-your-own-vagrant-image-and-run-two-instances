@@ -1,0 +1,111 @@
+
+
+Reference to previous documents ,aws/vagrant-packer
+
+https://github.com/talhajilal/aws/blob/master/vagrant-packer
+
+1- How to setup vagrant on windows
+a- Install oracle virtual box, 
+b- install vagrant 
+c- create a new directory " I created under c:/vagrant/firstproject"
+d- download first vagrant image " vagrant box add precise32 http://files.vagrantup.com/precise32.box --provider virtualbox" 
+e- vagrant box list
+f- vagrant init precise32
+g- dir
+Vagrantfile
+h- Now edit this file 
+Vagrant.configure("2") do |config|
+ config.vm.box = "vagrant/firstproject    # This path should be similar to the path you have created a new vagrant box"
+ 
+ ++++++++++++++++++++ Next step , I am going to create my own image +++++++++++++++
+
+For testing I login to image and install git hub 
+
+vagrant ssh
+sudo su - 
+yum install git
+
+exit  ,
+Step 2: Create new local image
+
+Windows console , 
+got to vagrant image directory. 
+c:/vagrant/centos-6.8
+#vagrant package --output mynew.box    ( Or image name and location )) 
+
+Step 3 Copy your image to require directory or location.
+
+
+
+Step 4- Go to desire directory and Run the following command to create your own vagrant image. 
+#vagrant box add mynewbox mynew.box
+
+Step 5 : vagrant init
+Step 6 : Edit vagrant file , 
+Step 7 : vagrant up , vagrant ssh 
+
+++++++++++++++++++++++++++++++++++++ How to run multipule vagrant boxes +++++++++++++++++++++++++++
+
+Step -1  
+Follow Step 3,4,5  ( Until the command of "vagrant init" ) 
+
+Step 2 : Open vagrant file and edit accordingly. 
+
+Note : I am planing to set a puppet master and puppet slave type a lab. I want to have two puppet nodes on my laptop for testing purpose. 
+
+To acomplish my target I have create the following two boxes. " puppetmaster and puppet" 
+
+My working Vagrant file for the above setup. 
+
+______________________________________________________________________________________________________________
+
+Vagrant.configure("2") do |config|
+  config.vm.define "puppetmaster" do |puppetmaster|
+    puppetmaster.vm.box = "mynewbox"
+    puppetmaster.vm.hostname = 'puppetmaster'
+    puppetmaster.vm.box_url = "bento/centos-6.7"
+
+    puppetmaster.vm.network :private_network, ip: "192.168.1.2"
+
+    puppetmaster.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "puppetmaster"]
+    end
+  end
+
+  config.vm.define "puppet" do |puppet|
+    puppet.vm.box = "mynewbox"
+    puppet.vm.hostname = 'puppet'
+    puppet.vm.box_url = "bento/centos-6.7"
+
+    puppet.vm.network :private_network, ip: "192.168.1.3"
+
+    puppet.vm.provider :virtualbox do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 512]
+      v.customize ["modifyvm", :id, "--name", "puppet"]
+    end
+  end
+end
+
+
+________________________________________________________________________
+
+
+
+step 3 : vagrant up 
+step 4 : vagrant status 
+
+You can see two  vagrant vms, 
+
+puppetmaster 
+puppet 
+
+
+
+The End 
+
+
+
+
