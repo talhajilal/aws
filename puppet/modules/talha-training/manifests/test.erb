@@ -1,0 +1,19 @@
+class training {
+file { '/tmp/test.file':
+  ensure   => 'file',
+  content  => '{md5}a9ca6a70cfde91d3efcb79835c940344',
+  ctime    => 'Sun Jul 30 07:31:48 +0000 2017',
+  group    => '0',
+  mode     => '664',
+  mtime    => 'Sun Jul 30 07:31:48 +0000 2017',
+  owner    => '0',
+  selrange => 's0',
+  selrole  => 'object_r',
+  seltype  => 'user_tmp_t',
+  seluser  => 'unconfined_u',
+  type     => 'file',
+}
+class training {
+
+}
+

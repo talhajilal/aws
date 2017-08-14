@@ -1,0 +1,14 @@
+{
+  "name": "sshd-config",
+  "version": "0.1.1",
+  "author": "Talha Jilal",
+  "summary": "This is sshd configuration module",
+  "license": "SSHD-Config",
+  "source": "/etc/puppet/sshd",
+  "project_page": null,
+  "issues_url": null,
+  "dependencies": [
+    {"version_requirement":">= 1.0.0","name":"puppetlabs-stdlib"}
+  ]
+}
+
