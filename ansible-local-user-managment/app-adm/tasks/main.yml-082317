@@ -1,0 +1,21 @@
+---
+- name: New Users
+  user: 
+    name: "{{ item.username }}" 
+    comment: "Talha Jilal adminstrator user"
+    shell: /bin/bash
+    groups: wheel
+    update_password: on_create
+    password: "{{ item.password }}"
+    state: "{{ item.state | default('present') }}"
+    with_items: "{{ users_list }}"
+
+- name: Assign sudo role to the admin users
+  copy: 
+    content: "{{ item.username }} ALL=(ALL) NOPASSWD:ALL" 
+    dest: "/etc/sudoers.d/99-{{ item.username }}"
+    mode: 0440
+    owner: root
+    group: root
+    when: item.type is defined and item.type == 'admin' and item.get('state', 'present') == 'present'
+    with_items: "{{ users_list }}"

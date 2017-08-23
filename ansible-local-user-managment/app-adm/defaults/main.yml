@@ -1,0 +1,6 @@
+--- 
+users_list:
+  - username: talhaji
+    type: admin
+    state: present
+    password: saJwgELO4ozwU
