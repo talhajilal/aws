@@ -1,0 +1,16 @@
+I am still learning how to create a multifunction playbook of Ansible , 
+
+tree db
+db
+├── files
+│   └── my.cnf
+├── handlers
+├── tasks
+│   └── main.yml
+├── templates
+└── variable
+
+
+first-playbook is my first ansible playbook , 
+
+
