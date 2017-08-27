@@ -1,0 +1,9 @@
+---
+- name: Package
+  yum: pkg=squid state=latest
+- name: New File
+  copy: src=server/files/hosts.json dest=/tmp/test-ansible
+- name: shell commands
+  shell: cat hosts >> /tmp/test-ansible  chdir=/etc/
+- name: tree
+  yum: pkg=tree state=present
