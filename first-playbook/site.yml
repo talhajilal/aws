@@ -7,3 +7,11 @@
   hosts: db
   roles:
         - db
+- name: Nfs-server
+  hosts: nfs
+  roles:
+        - nfs
+- name: nfs abc
+  hosts: nfs-clients
+  roles:
+        - autofs
