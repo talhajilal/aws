@@ -1,0 +1,17 @@
+---
+- name: NFS configuration module for nfs server
+  yum: pkg=nfs-utils disable_gpg_check=yes state=present
+- name: NFS package 
+  yum: pkg=nfs-utils-lib disable_gpg_check=yes state=present
+- name: nfs-service
+  service: name=nfs state=started enabled=yes
+- name: exportfs_nfs
+  template: src=files/exports.j2 dest=/etc/exports owner=root group=root
+- name: create_directory
+  file: path=/nfs state=directory mode=777 owner=root group=root
+## NFS Client configuraion
+- name: create_directory
+  file: path=/nfs-mount state=directory mode=777 owner=root group=root
+
+- name: set mountpoints
+  mount: path=/nfs-mount src=23.239.23.145:/nfs fstype=nfs opts=rwx opts=auto state=mounted

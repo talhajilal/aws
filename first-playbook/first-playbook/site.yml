@@ -1,0 +1,17 @@
+---
+- name: New test web server
+  hosts: puppetmaster
+  roles:
+        - server
+- name: Mysql module 
+  hosts: db
+  roles:
+        - db
+- name: Nfs-server
+  hosts: nfs
+  roles:
+        - nfs
+- name: nfs abc
+  hosts: nfs-clients
+  roles:
+        - autofs

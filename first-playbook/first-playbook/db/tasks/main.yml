@@ -1,0 +1,7 @@
+---
+- name: Mysql verification
+  yum: pkg=mysql-server state=present
+- name: My_cnf file
+  mysql_db: name=talha state=absent
+- name: my.cnf
+  template: src=db/files/my.cnf dest=/etc/my.cnf owner=root  group=root mode=0644

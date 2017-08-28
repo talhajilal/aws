@@ -1,0 +1,8 @@
+[hosts]
+puppetmaster
+[db]
+puppetmaster
+[nfs]
+localhost
+[nfs-clients]
+puppetmaster

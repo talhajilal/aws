@@ -1,0 +1,5 @@
+---
+- name: autofs-module
+  yum: pkg=autofs state=latest
+#- name: autofs services
+#  service: state=started enabled=yes 
