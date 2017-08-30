@@ -1,0 +1,15 @@
+---
+#- name: asdasd
+#  include: test/variable/main.yml
+- name: get the current time for a timestamp
+  command: date +%Y%m%d-%H%M%S
+  register: time
+
+- name: shell commands
+  copy: content={{ time.stdout }} dest=/tmp/ansible-test 
+
+- name: command to variable
+  shell: /tmp/test.sh chdir:/tmp/
+  register: ip
+- name: ip into text file
+  copy: content={{ ip.stdout }}-{{ time.stdout }}  dest=/tmp/ansible-test-ip
