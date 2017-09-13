@@ -1,0 +1,2 @@
+Read this.
+https://github.com/nsidc/vagrant-vsphere
