@@ -14,3 +14,32 @@ db
 first-playbook is my first ansible playbook , 
 
 
+##################### Ansible Glaxay ##########################################
+
+
+how to create new apache roles in ansible , 
+# ansible-galaxy init common
+#ansible-galaxy init apache
+
+This command automatically create files inside the directory. 
+
+tree  apache/
+apache/
+├── defaults
+│   └── main.yml
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+
+
+######################################################################################
