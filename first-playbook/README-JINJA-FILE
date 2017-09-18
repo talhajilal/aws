@@ -1,0 +1,124 @@
+In this tutorial I will explain two examples , 
+
+1- Local factory utilization " ansible -m setup localhost ( ip_address of host ) 
+2- Writting Jinja file for define variable in playboo/apache/default/main.yml "
+
+## Story behind this article, 
+## I was trying to configure multipule web app server , with different IP listner , 
+## For example I have one web server running on 192.168.2.10 and second is running on 192.168.2.11 and listenner address is different. 
+Listen 192.168.2.10:80
+
+I want to write a simple httpd.conf with ansible that help my web server to configure with local interface "eth0" listner IP address. 
+
+
+Step 1 : Create  a New ansible playbook , 
+mkdir apache-playbook
+ansible-galaxy init apache
+
+Step 2 : Create hosts file , 
+cat hosts
+[web]
+localhost
+
+Step 3 : Create site.yml , 
+
+---
+- name: Install apache
+  hosts: localhost
+  vars:
+    ip: 192.168.2.12
+    http_port: 80
+    max_client: 200
+  roles:
+       - apache
+
+
+Step 4: 
+
+tree  apache/
+apache/
+├── defaults
+│   └── main.yml
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+
+Step 5: Write tasks/main.yml  
+
+---
+# tasks file for apache
+- name: install apache
+  yum: pkg=httpd state=present
+- name: copy httpd.conf file,
+  template: src=/tmp/httpd.conf.jinja dest=/httpd.conf  owner=apache group=apache
+  
+  
+  Step 6: User template file that I mentioned in tasks/main.yml ' I use wrong location so I don't mess up with my actuall http configuration. 
+  
+  ( This Value  "facter_network_eth0" I obtain from ansible -m setup localhost command. ) This is a pre defined factor that have network interface value. 
+  
+  
+  
+ cat /tmp/httpd.conf.jinja  | grep -i listen
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# Change this to Listen on specific IP addresses as shown below to
+Listen {{ facter_network_eth0 }}:80
+Listen 80
+Listen 8080
+You have new mail in /var/spool/mail/root
+
+
+Step 7 : 
+
+Just for testing I enter the following one variable at the end. 
+
+website: {{ website }}
+
+
+Step 8 : in this  playbook/apache/default/main.yml   file I will define value of website. 
+
+root@python apache-playbook]# cat apache/defaults/main.yml
+---
+# defaults file for apache
+website: talhajilal
+
+Conclusion, 
+
+# ansible-playbook -i hosts site.yml 
+
+
+What will happen , 
+
+In destination directory , 
+
+
+cat /httpd.conf | grep -i listen
+# Listen: Allows you to bind Apache to specific IP addresses and/or
+# Change this to Listen on specific IP addresses as shown below to
+Listen 23.239.23.0:80
+
+cat /httpd.conf | tail -n 2
+
+website: talhajilal
+
+
+
+Perfect.
+
+
+
+
+
+
+
+
