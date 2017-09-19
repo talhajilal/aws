@@ -1,0 +1,5 @@
+[web]
+localhost
+[prod]
+lin-web-p-0*
+[dev]
