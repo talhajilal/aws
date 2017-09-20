@@ -1,0 +1,5 @@
+---
+# vars file for apache
+    http_port: 80
+    max_client: 200
+    port: 80898

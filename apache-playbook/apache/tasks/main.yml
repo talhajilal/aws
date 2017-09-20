@@ -1,0 +1,15 @@
+---
+# tasks file for apache
+- name: Seting variable
+  set_fact:
+   dynamic_content: 'new_file'
+   ip_address: "{{ facter_network_eth0 }}"
+- name: install apache
+  yum: pkg=httpd state=present
+- name: copy httpd.conf file,
+  template: src=/tmp/httpd.conf.jinja dest=/httpd.conf  owner=apache group=apache
+  register: result
+- name: testing result
+  copy: content={{ result }} dest=/tmp/result
+- name: create a test file
+  copy: content={{ dynamic_content }} dest=/file_test

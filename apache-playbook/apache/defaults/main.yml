@@ -1,0 +1,4 @@
+---
+# defaults file for apache
+ip: {facter_network_eth0}
+website: talhajilal
