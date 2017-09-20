@@ -27,3 +27,4 @@ vi mapping.json
   }
 ]
 
+# ansible-pull
