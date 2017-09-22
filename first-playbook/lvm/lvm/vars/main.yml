@@ -1,0 +1,11 @@
+---
+# vars file for lvm
+new_disk: /dev/xvdb
+create_vgname: app_vg
+create_lvname_1: app_lv
+create_lvname_2: app_2v
+extend_disks: /dev/xvdb
+filesystem: ext4  
+create_lvsize: 3g
+new_mntp_1: /opt/app1
+new_mntp_2: /opt/app2

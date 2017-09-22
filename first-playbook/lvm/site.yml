@@ -1,0 +1,7 @@
+---
+- name: Install apache
+  hosts: web-01
+  tags:
+      - lvm
+  roles:
+       - lvm

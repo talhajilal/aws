@@ -1,0 +1,17 @@
+---
+# tasks file for lvm
+- name: creating new LVM volume group
+  lvg: vg={{ create_vgname }} pvs={{ new_disk }} state=present
+- name: creating new LVM logical volume
+  lvol: vg={{ create_vgname }} lv={{ create_lvname_1 }} size={{ create_lvsize }}
+- name: creating new filesystem on new LVM logical volume
+  filesystem: fstype={{ filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname_1 }}
+- name: mounting new filesystem
+  mount: name={{ new_mntp_1 }} src=/dev/{{ create_vgname }}/{{ create_lvname_1 }} fstype={{ filesystem }} state=mounted
+
+- name: creating new LVM logical volume
+  lvol: vg={{ create_vgname }} lv={{ create_lvname_2 }} size={{ create_lvsize }}
+- name: creating new filesystem on new LVM logical volume
+  filesystem: fstype={{ filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname_2 }}
+- name: mounting new filesystem
+  mount: name={{ new_mntp_2 }} src=/dev/{{ create_vgname }}/{{ create_lvname_2 }} fstype={{ filesystem }} state=mounted
