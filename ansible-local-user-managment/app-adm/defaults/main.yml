@@ -5,4 +5,4 @@ users_list:
     state: present
     password: saJwgELO4ozwU
 
-perl -e "print crypt('changeme','sa');"
+#perl -e "print crypt('changeme','sa');"
