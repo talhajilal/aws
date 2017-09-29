@@ -1,0 +1,37 @@
+---
+- vsphere_guest: 
+    vcenter_hostname: 192.168.2.21
+    username: root
+    password: lahore123
+    validate_certs: False
+    guest: web-01
+    state: powered_on
+    vm_extra_config:
+      vcpu.hotadd: yes
+      mem.hotadd:  yes
+      notes: This is a test VM
+    vm_extra_config:
+      vcpu.hotadd: yes
+      mem.hotadd:  yes
+      notes: This is a test VM
+    vm_disk:
+      disk1:
+        size_gb: 15
+        type: thin
+        datastore: datastore1
+    vm_nic:
+      nic1:
+        type: vmxnet3
+        network: VM Network
+        network_type: standard
+    vm_hardware:
+      memory_mb: 1024
+      num_cpus: 2
+      osid: centosGuest
+      scsi: paravirtual
+      vm_cdrom:
+        type: "iso"
+        iso_path: "iso-dvd/centos-7-i386-Netinstall-1611.iso"
+    esxi:
+      datacenter: ha-datacenter
+      hostname: new-host.home

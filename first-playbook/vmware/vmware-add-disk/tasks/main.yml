@@ -1,0 +1,23 @@
+---
+- vsphere_guest: 
+   vcenter_hostname: 192.168.2.21
+   username: root
+   password: lahore123
+   validate_certs: False
+   guest: web-01
+   state: reconfigured
+   vm_extra_config:
+     vcpu.hotadd: yes
+     mem.hotadd:  yes
+   vm_extra_config:
+     vcpu.hotadd: yes
+     mem.hotadd:  yes
+     notes: This is a test VM
+   vm_disk:
+     disk2:
+       size_gb: 15
+       type: thin
+       datastore: datastore1
+   esxi:
+     datacenter: ha-datacenter
+     hostname: new-host.home

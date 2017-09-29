@@ -1,0 +1,10 @@
+---
+# tasks file for vmware
+- name: Vm ware creating
+  vsphere_guest: validate_certs=False vcenter_hostname=192.168.2.21 username=root password=lahore123 guest=centos-6 state=powered_on 
+    vm_disk:
+    disk1: 
+      datastore: datastore1 
+      type: thin 
+      size_gb: 10gb 
+

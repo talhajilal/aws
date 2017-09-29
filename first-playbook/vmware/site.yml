@@ -1,0 +1,5 @@
+---
+- name: Playing with logical volumes
+  hosts: localhost
+  roles:
+       - vmware-add-disk
