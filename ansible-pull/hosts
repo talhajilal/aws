@@ -1,0 +1,2 @@
+[host]
+python ansible_connection=ssh ansible_connection=local ansible_user=tjilal

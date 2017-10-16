@@ -1,0 +1,10 @@
+--- 
+- name: Install apache
+  hosts: host
+  vars: 
+    http_port: 80
+    max_client: 200
+  roles:
+#       - apache
+#       - how-to-register-variable-in-ansible  
+        - script
