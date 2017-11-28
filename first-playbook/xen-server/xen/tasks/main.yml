@@ -1,0 +1,13 @@
+---
+# tasks file for xen
+- name: Create VM
+  command: xe vm-install template={{ host_centos_template_uid }} new-name-label="ansible-automation" sr-uuid={{ host_local_sr_uid }}
+  register: result
+ 
+- name: Set the repository location
+  command: xe vm-param-set uuid={{ result.stdout }} other-config:install-repository="http://mirror.centos.org/centos-6/6/os/x86_64/"
+- name: Assign a network
+  command: xe vif-create vm-uuid={{ result.stdout }} network-uuid={{ host_user_network_uid }} mac=random device=0
+ 
+- name: Launch the VM
+  command: xe vm-start uuid={{ result.stdout }}

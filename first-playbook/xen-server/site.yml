@@ -1,0 +1,14 @@
+- hosts: xen
+  user: root
+  gather_facts: False
+  vars:
+    - host_centos_template_uid: 9389b49a-5c00-5757-93ae-2beb00500eb9
+    - host_local_sr_uid: fe8684a4-0227-f9d6-6224-bfba7e54395f
+    - host_user_network_uid: 237e27dc-4e1b-4d03-a4b8-6a1272f5a647
+  roles:
+       - xen
+
+
+
+# How to find xen server network ID:
+# xe host-list
