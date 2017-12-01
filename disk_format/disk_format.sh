@@ -1,5 +1,5 @@
 #/bin/bash 
-# Script coded Date 21-7-2017" T
+# Script coded Date 21-7-2015" T
 #Coded by Talha Jilal" 
 echo "No warranty of any data lost this is an open source code"
 echo "..............................absolute no warranty of any data lost......."
