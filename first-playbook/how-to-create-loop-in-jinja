@@ -1,0 +1,82 @@
+
+1- Create ansible play book, 
+
+
+{% for line in csv_data.split("\n") %}
+{%set list = line.split(",") %}{% if  list[0] == ansible_eth0.ipv4.address %}
+{%set list=line.split(",")%}
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+NM_CONTROLLED=no
+IPADDR={{list[1]}}
+NETMASK={{list[2]}}
+{% else %}
+{% endif %}
+{% endfor%}
+
+
+================== Read me Instructoin A full playbook see with name " Jinja-loop-playbook===================================
+
+
+
+
+
+How to create ansible playbook reading information from CSV file for system configuration. 
+Story: In this playbook we will read information from a given csv and configure values with jinja template. 
+
+#ansible-galaxy init test
+#cd test/meta
+#vi server_list.csv
+Primary IP(must be configured) ,Secondry,Netmask,gateway_eth0,gateway_eth1,hostname
+10.10.10.2,11.11.11.10,255.255.255.0,10.10.10.1,11.11.11.0,sdsi-ansible-north
+
+#vi test/vars/main.yml
+---
+
+csv_data: "{{ lookup('file', 'server_list.csv') }}"
+
+
+This is our area of interest how we write this file
+1-	Server_list.csv ( Already mentioned above ) 
+2-	var/main.yml
+3-	meta/ifconfing-eth1.j2 
+4-	taks/main.yml 
+---
+- name: Reading server_list.csv file and setting up ethernet-1
+  template: src=meta/ifconfig-eth1.j2 dest=/etc/sysconfig/network-scripts/ifcfg-eth1 mode=0644 backup=yes
+  ignore_errors: yes
+
+
+#vi test/meta/ ifconfig-eth1.j2
+
+{% for line in csv_data.split("\n") %}
+{%set list = line.split(",") %}{% if  list[0] == ansible_eth0.ipv4.address %}
+{%set list=line.split(",")%}       
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+NM_CONTROLLED=no
+IPADDR={{list[1]}}        # a second column of csv file
+NETMASK={{list[2]}}   # a third column of CSV file
+{% else %}
+{% endif %}
+{% endfor%}
+
+ The file we use in taks/main.yml as template and this will create a new simple text file. 
+
+
+i.e : 
+
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+NM_CONTROLLED=no
+IPADDR=11.11.11.10
+NETMASK=255.255.255.0
