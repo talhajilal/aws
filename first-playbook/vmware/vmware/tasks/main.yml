@@ -2,7 +2,7 @@
 - vsphere_guest: 
     vcenter_hostname: 192.168.2.21
     username: root
-    password: lahore123
+    password: ***********
     validate_certs: False
     guest: web-01
     state: powered_on
