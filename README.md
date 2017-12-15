@@ -28,3 +28,19 @@ vi mapping.json
 ]
 
 # ansible-pull
+
+
+
+
+#Git hub learning , 
+how to recover a file if deleted from local directory. 
+# git checkout 
+( It will show you deleted files) 
+git checkout
+D       README.md
+D       new_script.sh
+D       some_script.sh
+
+
+#git checkout new_script.sh README.md some_script.sh
+now files are back from git
