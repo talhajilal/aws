@@ -1,0 +1,15 @@
+---
+# tasks file for factor
+- name: variable looking and registering
+  shell: ip ntable | grep dev | sort | uniq | sed -e 's/^.*dev //;/^lo/d'   | grep eth2 | wc -l
+  register: output
+- name: something first
+  shell: cp /etc/sysconfig/network-scripts/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0.back
+  when: output.stdout == "1"
+  register: copy
+- name: something second
+  shell: echo "something" > /tmp/interface
+  when: copy.changed
+- name: something third action
+  shell: echo " This is my deed" >> /tmp/interface
+  when: output.stdout == "0"
