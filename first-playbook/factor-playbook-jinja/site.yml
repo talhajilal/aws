@@ -1,0 +1,9 @@
+--- 
+#- name: Install apache
+#  hosts: localhost
+#  roles:
+#        - factor
+- name: openstack host group
+  hosts: openstack
+  roles: 
+       - disk-managment

@@ -1,0 +1,6 @@
+---
+# vars file for apache
+IPADDR: 192.168.2.132
+talhajilal: 192.168.2.124
+csv_data: "{{ lookup('file', 'test.csv') }}"
+mybool: 10.10.10.10

@@ -1,0 +1,14 @@
+{% for line in csv_data.split("\n") %}
+{%set list = line.split(",") %}{% if  list[0] == ansible_hostname %}
+{%set list=line.split(",")%}
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+NM_CONTROLLED=no
+IPADDR={{list[1]}}
+NETMASK=255.255.255.0
+{% else %}
+{% endif %}
+{% endfor%}

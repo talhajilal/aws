@@ -1,0 +1,8 @@
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=eth1
+DEVICE=eth1
+ONBOOT=yes
+#IPADDR={host_name_ip}
+ip_address: {{host_name_ip}}
+NETMASK=255.255.255.0

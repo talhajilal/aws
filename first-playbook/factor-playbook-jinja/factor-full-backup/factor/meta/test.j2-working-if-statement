@@ -1,0 +1,13 @@
+{% for line in csv_data.split("\n") %}
+       {% set list = line.split(",") %}
+       {{ ansible_hostname }}
+
+{%endfor%}
+
+{% if  ansible_hostname=='kuber-02' %}
+    You should read it!
+{% else %}
+    You should not read it! 
+
+{% endif %}
+

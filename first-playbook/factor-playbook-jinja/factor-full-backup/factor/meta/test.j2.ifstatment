@@ -1,0 +1,9 @@
+{% for line in csv_data.split("\n") %}
+       {% set list = line.split(",") %}
+{% if '{{ list[1] }}'  '==' '{{ ansible_hostname }}' -%}
+{{ list[0] }}={{ list [0] }}
+{% else %}}
+{{ list [1] }}
+{% endif %}
+
+{% endfor %}

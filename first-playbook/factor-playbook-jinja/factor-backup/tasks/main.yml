@@ -1,0 +1,5 @@
+---
+- name: testing
+  template: src=meta/test.j2 dest=/tmp/test 
+- name: testing_ip
+  template: src=meta/ifcfg-eth1.j2 dest=/tmp/test_ip
