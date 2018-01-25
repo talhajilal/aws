@@ -1,2 +1,6 @@
 # Reading about vmware_guest module for ansible with ansible 2.3
 http://ansible-manual.readthedocs.io/en/stable-2.3/vmware_guest_module.html
+
+## #Som other usefull reading links for vm_guest for ansible automation 
+#
+#http://54im.com/ansible-doc/vsphere_guest_module.html
