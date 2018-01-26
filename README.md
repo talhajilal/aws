@@ -44,3 +44,7 @@ D       some_script.sh
 
 #git checkout new_script.sh README.md some_script.sh
 now files are back from git
+
+
+
+https://www.packer.io/docs/builders/vmware-iso.html
