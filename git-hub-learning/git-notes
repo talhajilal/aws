@@ -1,0 +1,52 @@
+Github using examples
+Global Configuraiton
+
+git config --global user.name "talhajilal"
+git config --global user.email "talhajilal@gmail.com"
+git remote set-url origin https://talhajilal@github.com/talhajilal/aws.git
+git pull origin
+
+<pre/>
+==MERGE CODE BETWEEN BRANCHES==
+<pre>
+git checkout master
+git branch
+git merge develop-qa --no-ff
+git push
+SEE WHICH ORIGINS ARE SET
+git 
+git remote -v
+git config --list
+git pull origin master
+END SEE WHICH ORIGINS ARE SET
+REVERT A MERGE
+git checkout develop-qa
+git log
+## Read logs and obtain what ever number you want to change" 
+##
+git revert -m 1 <merge-commit>
+git commit -m "Reverted Wordpress Removal"
+git push -u origin develop-qa
+END REVERT A MERGE
+
+
+==CREATE A DEV BRANCH==
+<pre>
+git checkout -b develop-qa
+git checkout develop-qa
+git branch 
+
+git checkout -b development
+git checkout development
+git branch
+CREATE A DEV BRANCH
+REMOVING GIT CONFLICT
+git checkout develop-qa
+git pull origin develop-qa
+git checkout CONFLICT_BRANCH_NAME
+git merge develop-qa
+Open the conflict file, fix the issues
+git add CONFLICT_FILE_PATH_AND_NAME
+git commit -m 'commit message'
+git push origin CONFLICT_BRANCH_NAME
+NOW go and create Pull request again
