@@ -1,0 +1,5 @@
+---
+# tasks file for spacewalk
+- name: Spacewalk Regsitration task
+  rhn_register:  state=present activationkey=1-centos-6.8 enable_eus=true
+

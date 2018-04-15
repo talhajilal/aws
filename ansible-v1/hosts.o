@@ -1,0 +1,2 @@
+[web-vms]
+ans-web[11:12] disk='20' datastore='datastore1' network='vmxnet3' memory='1024' cpucount='1' osid='rhel-7' template='web-02'

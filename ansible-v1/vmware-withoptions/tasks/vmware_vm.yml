@@ -1,0 +1,3 @@
+---
+- name: this is again a test file
+  shell: echo  " {{ inventory_hostname }} You can replace your vmware creation files" >  /tmp/vm-test

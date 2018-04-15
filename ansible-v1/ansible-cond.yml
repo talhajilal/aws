@@ -1,0 +1,7 @@
+---
+- name: ansible condition
+  hosts: cond
+  connection: local
+  gather_facts: true
+  roles:
+      - ansible-cond

@@ -1,0 +1,18 @@
+---
+# tasks file for docker-install
+- name: if ping not working
+  command: ping -c 1 www.google.ca
+  register: pingout
+  ignore_errors: yes
+- name: adding default gw
+  command: route add default gw 192.168.2.1
+  when: pingout.rc  != 0
+- debug: 
+    msg: "{{ pingout.stdout }}"
+- name: Add epel repository
+  yum_repository:  name=epel description='EPEL YUM repo'  baseurl=https://download.fedoraproject.org/pub/epel/$releasever/$basearch/  
+- name: install docker and other packages 
+  yum: name={{ item }} state=latest 
+  with_items:
+      - git
+      - go

@@ -1,0 +1,8 @@
+---
+- debug:
+    msg: "{{ item }}"
+  with_items: "{{ vm_name_1 }}"
+- name: testing some files
+  shell: echo "{{ item.a }} {{ item.b }}" >> /tmp/test_file
+  with_items:  
+    - { a: '{{ vm_name_1 }}' , b: '{{ vm_ip }}' }

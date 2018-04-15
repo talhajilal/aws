@@ -1,0 +1,4 @@
+---
+- name: some condition verify
+  shell: echo "Some Commands" >> /tmp/some_conditions
+  when: disk1_size_gb  != ""  and disk2_size_gb != "" 

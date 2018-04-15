@@ -1,0 +1,7 @@
+---
+- name: network interface
+  hosts: docker-hosts
+  gather_facts: yes
+  roles:
+      - docker-install
+      - docker-ce-ansible-role

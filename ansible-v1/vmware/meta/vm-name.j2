@@ -1,0 +1,11 @@
+{% for line in csv_data.split("\n") %}
+{%set list = line.split(",") %}{% if  list[0] == ansible_eth0.ipv4.address %}
+{%set list=line.split(",")%}
+#IPADDR={{list[1]}}
+#NETMASK={{list[2]}}
+vm-name={{list[1]}}
+ip-add={{list[2]}}
+{% else %}
+{% endif %}
+{% endfor%}
+

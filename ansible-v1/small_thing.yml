@@ -1,0 +1,7 @@
+---
+- name: network interface
+  hosts: hosts
+  connection: local
+  gather_facts: yes
+  roles:
+      - vmware-withoptions

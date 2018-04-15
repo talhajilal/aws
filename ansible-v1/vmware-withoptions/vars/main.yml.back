@@ -1,0 +1,4 @@
+---
+# vars file for vmware-withoptions
+ip_add_nic_1: 1
+disk_size_2: 1

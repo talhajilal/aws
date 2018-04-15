@@ -1,0 +1,7 @@
+---
+- name: network interface
+  hosts: web-vms
+  connection: local
+  roles:
+      - debug
+ 

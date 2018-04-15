@@ -1,0 +1,8 @@
+---
+# tasks file for vmware-withoptions
+- name: some task
+  include: some-litle_task.yml
+  when: ip_add_nic_1 is defined
+- name: if some task is not defined
+  include: vmware_vm.yml
+  when: ip_add_nic_1 is defined and disk_size_2 is defined

@@ -1,0 +1,5 @@
+[cond]
+host_name host='some' nothing='nothing' disk1_size_gb='' disk2_size_gb='b' 
+host_name-2 host='some' nothing='nothing' disk1_size_gb='' disk2_size_gb='b'
+hostname-03 host='some' nothing='nothing' disk1_size_gb='' disk2_size_gb='b'
+hostname-05 host='some' nothing='nothing' disk1_size_gb='' disk2_size_gb='b'

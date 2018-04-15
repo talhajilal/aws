@@ -1,0 +1,35 @@
+---
+# tasks file for vmware-facts
+- name: Gather all registered virtual machines
+  vmware_vm_facts:
+    hostname: 192.168.2.50
+    username: root
+    password: Pass1234
+    validate_certs: no
+  delegate_to: localhost
+  register: vmfacts
+#- debug:
+#    var: vmfacts
+- debug:
+   msg: " {{ item.key }} {{ item.value.ip_address }} "
+  with_dict: "{{ vmfacts.virtual_machines }}"
+- name: obtaining vm  lists from data center.
+  shell: echo "List of VMs" > /tmp/vms_list
+- name: creating a vms list file. 
+#  shell: echo  " {{ item.key }} {{ item.value.ip_address }} " >>  /tmp/vms_list
+  shell: echo  " {{ item.key }} {{ item.value.ip_address }}" >> /tmp/vms_list
+  with_dict: "{{ vmfacts.virtual_machines }}"
+  register: result
+
+  #when: {{ item.key }}  == {{ inventory_hostname }}
+  #when: {{ item.key }} == {{ inventory_hostname }}
+
+#  msg: "IP of {{ item.key }} is {{ item.value.ip_address }}"
+  #when: vmfacts.changed == changed and virtual_machines == web-02
+#  with_dict: "{{ vmfacts.virtual_machines }}"
+#  when: vmfacts.virtual_machines|changed
+#  when: virtual_machines == docker-02
+#  register: vmfacts.vmfacts.virtual_machines. {{ inventory_hostname }}
+#  when: vmfacts == web-02
+#.{{ inventory_hostname }}
+#  when: vmfacts.virtual_machines = ! docker-01

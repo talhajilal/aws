@@ -1,0 +1,4 @@
+[web-vms]
+kuber-n-03 dns_1='192.168.2.1' dns_2='192.168.2.1' ip_add_nic_1='192.168.2.10'  nic_netmask_1='255.255.255.0' nic_gateway_1='192.168.2.1' disk_size_1='24' disk_size_2='20' domain_name='rogers' ram_size='2048' cpu_nums='2' datastore_name='datastore1'  vm_template_name='web-03' esxi_host_name='192.168.2.21'  data_center_name='Talha'  resource_pool_name_local='web-child' nic1_vlan='' vm_network_name='VM Network' nic1_port_group='VM Network' folder_path='/'  msg_1="some_thing" msg_2="some_thing_2" msg_3="some_thing_3" msg_4="some value"
+[nagios]
+192.168.0.10

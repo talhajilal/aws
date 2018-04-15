@@ -1,0 +1,7 @@
+---
+# tasks file for csv-vars
+- name: template
+  shell: echo {{ item.a }} {{ item.b }} {{ item.c }} > /tmp/ansible_test.text
+  with_items: 
+        - { a: ( sed -e 1d csv-vars/meta/vm.csv | awk -F ',' '{print $1}' ) }
+#        - { a: something_new , b: something_old , c: something_pre }

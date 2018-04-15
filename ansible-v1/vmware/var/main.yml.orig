@@ -1,0 +1,8 @@
+---
+# vars file for vmware
+# vars file for ifcfg-eth1
+csv_data: "{{ lookup('file', vm_list.csv'') }}"
+vm_name:
+      - "{{ lookup('template', 'vm_name.j2') }}"
+vm_ip:
+    - "{{ lookup('template', 'vm_ip.j2') }}"

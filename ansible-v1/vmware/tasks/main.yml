@@ -1,0 +1,52 @@
+---
+- name: Creating VMs
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_user }}"
+    password: "{{ vcenter_pass }}"
+    datacenter: "{{ data_center_name }}"
+    validate_certs: no
+    folder: /
+    esxi_hostname: "{{ esxi_host_name }}"
+    name: "{{ inventory_hostname }}"
+    #resource_pool: "{{ resource_pool_name_local }}"
+    #name: "{{ item.vm_name_var }}"
+    state: poweredon
+    guest_id: centos64Guest
+    template: "{{ vm_template_name }}"
+#    customvalues:
+#      - key: num_cpu_cores_per_socket
+#        value: "2"
+    disk:
+    - size_gb: "{{ disk_size_1 }}"
+      type: thin
+      datastore: "{{ datastore_name }}"
+    - size_gb: 10
+      type: thin
+      datastore: "{{ datastore_name }}"
+    hardware:
+        memory_mb: "{{ ram_size }}"
+        num_cpus: "{{ cpu_nums }}"
+        num_cpu_cores_per_socket: 2
+        scsi: paravirtual
+    networks:
+    - name: VM Network
+      nic: 1
+      device_type: vmxnet3
+      ip: "{{ ip_add_nic_1 }}"
+      netmask: 255.255.255.0
+      gateway: 192.168.2.1
+      domain: home
+      hostname: "{{ inventory_hostname }}"
+      dns_server:
+      - 192.168.2.1
+    customization: 
+      autologon: yes
+      dns_servers:
+      - 192.168.2.1
+    wait_for_ip_address: no
+  delegate_to: localhost
+  register: deploy
+  ignore_errors: yes
+#  when: ip_add_nic_1 is defined and disk_size_1 is defined
+- debug: var=deploy

@@ -1,0 +1,12 @@
+---
+# handlers file for vmware
+- name: Adding additional Disk
+  vmware_guest: 
+  disk:
+  - size_gb: 10
+      type: thin
+      datastore: datastore1
+    hardware:
+      memory_mb: 2048
+      num_cpus: 2
+      scsi: paravirtual

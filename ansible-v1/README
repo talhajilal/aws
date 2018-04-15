@@ -1,0 +1,13 @@
+
+https://github.com/ansible/ansible/issues/26420
+
+    disk:
+      - size_gb: 10
+        type: thin
+        autoselect_datastore: yes
+        datastore: 'datastore_lab_'
+      - size_gb: 20
+        type: thin
+        autoselect_datastore: yes
+        datastore: 'datastore_lab_'
+

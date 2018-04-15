@@ -1,0 +1,7 @@
+---
+- name: nagios installation 
+  hosts: nagios
+  gather_facts: yes
+  become: yes
+  roles:
+      - nagios

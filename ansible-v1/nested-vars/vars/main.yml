@@ -1,0 +1,14 @@
+---
+# vars file for test
+csv_data: "{{ lookup('file', 'meta/test.csv') }}"
+vm_name:
+     - - alpha
+       - bravo
+nested_list:
+      - - one
+        - two
+        - three
+vm_name_1: 
+      - "{{ lookup('template', 'meta/test.j2') }}"
+vm_ip: 
+    - "{{ lookup('template', 'meta/test2.j2') }}"

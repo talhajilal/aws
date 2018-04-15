@@ -1,0 +1,8 @@
+---
+- name: Collecting Vms facts
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: yes
+  roles:
+      - vmware-facts

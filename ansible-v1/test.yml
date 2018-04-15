@@ -1,0 +1,7 @@
+---
+- name: debug message testing
+  hosts: all
+  connection: local
+  roles:
+      - debug
+ 

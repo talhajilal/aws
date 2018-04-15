@@ -1,0 +1,63 @@
+---
+# tasks file for kubernetes
+- name: Selinux disabling 
+  selinux: state=disabled
+- name: Install kuberneted packages
+  yum: name={{ item }}  state=present
+  with_items: 
+    - kubernetes
+    - flannel 
+    - docker 
+- debug: var=ansible_all_ipv4_addresses
+- name: /etc/kubernetes/kubelet Configuration files file kubernetes to join domain
+  template: src=meta/kubelet.j2 dest=/etc/kubernetes/kubelet owner=root group=root mode=644 
+  register: result_template
+- name: meta/flanneld.j2 Configuration files file flanneld 
+  template: src=meta/flanneld.j2 dest=/etc/sysconfig/flanneld owner=root group=root mode=644
+  register: result_flanneld
+- debug: var=result_template
+- name: restart services when configuration change
+  service: state=restarted name={{ item }} 
+  when: result_template.changed
+  with_items:
+      - kube-proxy
+      - kubelet
+      - flanneld
+      - docker
+- name: restart only flanneld when configuration change
+  service: state=restarted name=flanneld
+  when: result_flanneld.changed
+### Some new changes from example " https://github.com/gbraad/ansible-role-kubernetes-master.git "Read this for more examples
+- name: apiserver | admission control
+  copy: src=meta/apiserver.j2 dest=/etc/kubernetes/apiserver 
+
+
+- name: Configure k8s common services
+  lineinfile:
+    dest: /etc/kubernetes/config
+    line: KUBE_ETCD_SERVERS="--etcd_servers=http://{{ ansible_default_ipv4.address  }}:2379"
+    regexp: "^KUBE_ETCD_SERVERS"
+  notify: restart k8s
+
+### Get node status for registration
+- name: Getting current node status
+  shell:  kubectl  get nodes  | grep {{ansible_default_ipv4.address}} | awk '{print $2}'
+  register: result_kub_status
+- debug: var=result_kub_status
+
+- name: Register node with kubernetes
+  shell: kubectl config set-cluster default-cluster --server=http://{{ kuber_admin }}:8080
+  when:  result_kub_status.stdout  != "Ready" 
+
+
+- name: Running command kubectl config --user=default-admin
+  shell: kubectl config set-context default-context --cluster=default-cluster --user=default-admin
+  when:  result_kub_status.stdout  != "Ready"
+
+
+- name: Running third set of command 
+  shell: kubectl config use-context default-context
+  when:  result_kub_status.stdout  != "Ready"
+
+- name: Copying script to kubernetes minos. 
+  copy: src=meta/scrip.sh.j2 dest=/tmp/script.sh mode=0755 owner=root

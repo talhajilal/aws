@@ -1,0 +1,19 @@
+---
+# tasks file for nagios
+- name: enabling yum repository
+  yum: enablerepo=yes name=epel-release state=present
+  ignore_errors: yes
+- name: installing required packges
+  yum: package={{ item }}  state=present
+  with_items:
+      - gcc 
+      - glibc 
+      - glibc-common 
+      - gd  
+      - gd-devel 
+      - make 
+      - net-snmp 
+      - openssl-devel 
+      - xinetd 
+      - unzip
+      - nagios 

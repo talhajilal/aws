@@ -1,0 +1,4 @@
+---
+- debug:
+    msg: "{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname)}}"
+ 

@@ -1,0 +1,8 @@
+---
+# tasks file for test
+- name: testing 123 
+  template: src=meta/test.j2 dest=/tmp/dest.tmp owner=root
+- name: testing with_items 
+  shell: echo {{ item }} >> /tmp/test.txt
+  with_items: 
+    - "{{ vm-name }}"

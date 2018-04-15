@@ -1,0 +1,9 @@
+---
+- debug:
+    msg: "{{ item.vm_name_var }} {{ item.vm_ip_var }}"
+  with_items: 
+    - { vm_name_var: '{{ vm_name }}' , vm_ip_var: '{{ vm_ip }}' }
+- debug:
+    msg: "{{ item }}"
+  with_file:
+    -  meta/test-2 , meta/test-1

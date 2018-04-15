@@ -1,0 +1,5 @@
+{% for line in csv_data.split("\n") %}
+{%set list = line.split(",") %}
+vm-name={{list[1]}}
+ip-add={{list[2]}}
+{% endfor%}

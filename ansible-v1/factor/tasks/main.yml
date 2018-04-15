@@ -1,0 +1,27 @@
+---
+# tasks file for factor
+
+- name: variable looking and registering
+  shell: ip ntable | grep dev | sort | uniq | sed -e 's/^.*dev //;/^lo/d'   | grep eth0 | wc -l
+  register: output
+- name: something first
+  shell: cp /etc/sysconfig/network-scripts/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0.back
+  when: output.stdout == "1"
+  register: copy
+- name: something second
+  shell: echo "something" > /tmp/interface 
+  when: copy.changed
+
+#- name: test2 
+#  shell:  echo "{{ result.stdout }}"  > /tmp/interface
+#  when: output['rc'] !=1
+#- name: test 2
+#  shell: echo {{ result }} > /tmp/interface
+# name: Test
+# shell: echo {{ ansible_eth1.ipv4.address }} > /tmp/ip
+# register: result
+#- name: backups adp3
+#  shell: cp -f /etc/sysconfig/network-scripts/ifcfg-eth0 /var/tmp/ifcfg-eth0.bak
+#  when: result|success
+#  SOme hint #  shell: echo {{ ansible_interfaces }} > /tmp/interface
+#

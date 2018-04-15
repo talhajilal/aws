@@ -1,0 +1,24 @@
+- name: Create a VM from a template
+  vmware_guest:
+    hostname:192.168.2.50
+    username: root
+    password: Pass1234
+    validate_certs: no
+    folder: /talha
+    name: testvm_2
+    state: poweredon
+    template: centos-7-template
+    disk:
+    - size_gb: 20
+      type: thin
+      datastore: datastore1
+    hardware:
+      memory_mb: 1024
+      num_cpus: 1
+      scsi: paravirtual
+    networks:
+    - name: VM Network
+      mac: aa:bb:dd:aa:00:14
+    wait_for_ip_address: yes
+    delegate_to: localhost
+    register: deploy

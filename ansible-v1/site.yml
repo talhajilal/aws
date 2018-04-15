@@ -1,0 +1,24 @@
+---
+- name: VMware VM  building
+  hosts: web-vms
+  connection: local
+  gather_facts: true
+  become: yes
+  vars_prompt:
+  - name: "vcenter_hostname"
+    prompt: "Enter vcenter hostname 192.168.2.50"
+    private: no
+    default: "192.168.2.50"
+  - name: "vcenter_user"
+    default: "root"
+    prompt: "Enter vcenter username"
+    private: no
+  - name: "vcenter_pass"
+    default: "Pass1234"
+    prompt: "Enter vcenter password"
+    private: yes
+  roles:
+      - vmware
+      - docker-install
+      - docker-ce-ansible-role
+

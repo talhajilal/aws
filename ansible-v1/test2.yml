@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: reading file
+      debug: msg={{item.a}}
+      with_lines: 
+        -  cat /tmp/vmware.csv | sed -e 1d | awk -F ',' '{print $1}'
+#     }}} }  - b cat /tmp/vmware.csv | sed -e 1d | awk -F ',' '{print $2}''
+      with_lines: 
+        - a: cat /tmp/vmware.csv | sed -e 1d | awk -F ',' '{print $2}'

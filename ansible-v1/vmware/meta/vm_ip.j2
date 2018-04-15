@@ -1,0 +1,5 @@
+{% for line in csv_data.split("\n") %}
+{%set list = line.split(",") %}
+{%set list=line.split(",")%}
+{{list[1]}}
+{% endfor%}
