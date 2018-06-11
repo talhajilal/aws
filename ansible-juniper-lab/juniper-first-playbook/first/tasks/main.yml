@@ -1,0 +1,8 @@
+---
+# tasks file for first
+- name: run show version on remote devices
+  junos_command:
+    commands: show version
+  register: result
+- debug: var=result
+
