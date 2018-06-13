@@ -1,7 +1,0 @@
----
-- name: Juniper first playbook
-  remote_user: root
-  hosts: jns
-  connection: local
-  roles:
-     - first
