@@ -4,5 +4,27 @@
   junos_command:
     commands: show version
   register: result
-- debug: var=result
 
+# Running Debug mode for understanding.
+- debug: msg={{ result.stdout_lines[0][0] }}
+
+# Show configure command
+- name: run show configure command
+  junos_command: commands='show configuration'
+  register: v1
+
+- debug: msg={{ v1.stdout_lines[0][2] }}
+
+- name: command 
+  file: path=/tmp/juniper_test state=touch 
+  delegate_to: localhost
+
+
+- name: writing host name in test file on ansible server '/tmp/juniper_test'  hostnames 
+  lineinfile: path=/tmp/juniper_test state=present line={{ result.stdout_lines[0][0] }}  
+  delegate_to: localhost
+
+
+# Login banner on both juniper hosts
+- name: configure the login banner
+  junos_banner: banner=login  text=" Welcome to My Test lab running on Vagrant This is Junos Vsrx"    state=present
