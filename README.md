@@ -1,7 +1,7 @@
 # aws
 AWS learning and scripting notes
 
-step 1 - 
+##step 1 - 
 
   vi create_new_instance_with_disk_option.sh
 #/bin/bash
@@ -14,7 +14,7 @@ aws ec2 run-instances --image-id $id --security-group-ids $sec_grp --count 1 --i
 
 
 
-step 2-
+##step 2-
 vi mapping.json
 [
   {
@@ -42,9 +42,14 @@ D       new_script.sh
 D       some_script.sh
 
 
-#git checkout new_script.sh README.md some_script.sh
+##git checkout new_script.sh README.md some_script.sh
 now files are back from git
 
 
 
 https://www.packer.io/docs/builders/vmware-iso.html
+
+
+# Ansible reading notes
+
+https://blog.billyc.io/2018/02/11/ansible-snippets---manipulating-json-data/
