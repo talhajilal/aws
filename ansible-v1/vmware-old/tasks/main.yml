@@ -1,6 +1,6 @@
 ---
 - vsphere_guest:
-    vcenter_hostname: 192.168.2.50
+  vcenter_hostname: 192.168.2.50
     username: root
     password: Pass1234
     guest: newvm001
@@ -19,11 +19,10 @@
       nic1:
         type: vmxnet3
         network: VM Network
-        network_type: standard
-        type: vmxnet3
+        network_type: standardtype: vmxnet3
         network: VM Network
         network_type: standard
-    vm_hardware:
+     vm_hardware:
        memory_mb: 1024
        num_cpus: 2
        osid: centos64Guest
@@ -31,4 +30,3 @@
        esxi:
          datacenter: datastore1
          hostname: 192.168.2.21
-
