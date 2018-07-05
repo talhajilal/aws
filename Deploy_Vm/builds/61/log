@@ -1,0 +1,31 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins8803982895885170256.sh
++ inventory_file_name=/opt/jenkins-vm-create/inventory
++ echo ''
++ echo '# Creating Inventory File for ansible Create VM Playbook'
+++ date +%H-%d%m%y
++ time_stamp=16-280618
++ echo '#  16-280618 '
++ echo '[vm_list]'
++ IFS='
+'
++ set -- 10.10.10.10 10.10.10.11 10.10.10.12 10.10.10.14
++ for i in '$vm_name'
++ printf '%s %s\n' vm_1 'ip_add_nic_1=10.10.10.10 datastore_name='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''1'\'' cpu_nums='\''1'\'' disk_size_2='\''20'\'' nic1_port_group='\'''\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  '
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_2 'ip_add_nic_1=10.10.10.11 datastore_name='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''1'\'' cpu_nums='\''1'\'' disk_size_2='\''20'\'' nic1_port_group='\'''\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  '
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_3 'ip_add_nic_1=10.10.10.12 datastore_name='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''1'\'' cpu_nums='\''1'\'' disk_size_2='\''20'\'' nic1_port_group='\'''\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  '
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_4 'ip_add_nic_1=10.10.10.14 datastore_name='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''1'\'' cpu_nums='\''1'\'' disk_size_2='\''20'\'' nic1_port_group='\'''\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  '
++ shift
++ echo 'Running Ansible playbook'
+Running Ansible playbook
++ ansible-playbook -i /opt/jenkins-vm-create site.yml
+ERROR! the playbook: site.yml could not be found
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

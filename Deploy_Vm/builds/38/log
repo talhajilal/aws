@@ -1,0 +1,10 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins467922277646391980.sh
++ IFS='
+'
++ set -- '10.10.10.1 10.10.10.2 10.10.10.3'
++ for i in '$vm_name'
++ printf '%s %s\n' 'host_a host_b host_c host_d' 'a=10.10.10.1 10.10.10.2 10.10.10.3 '
++ shift
+Finished: SUCCESS

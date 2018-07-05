@@ -1,0 +1,98 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins5037758470697209312.sh
++ inventory_file_name=/opt/jenkins-vm-create/inventory
++ echo Storage Controller Data Network
++ echo ''
++ echo '# Creating Inventory File for ansible Create VM Playbook'
+++ date +%H-%d%m%y
++ time_stamp=11-290618
++ echo '#  11-290618 '
++ echo '[vm_list]'
++ IFS='
+'
++ set -- 172.30.244.124
++ for i in '$vm_name'
++ printf '%s %s\n' jenkin-vm-001 'ip_add_nic_1=172.30.244.124 datastore_name='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''2048'\'' cpu_nums='\''2'\'' disk_size_2='\''20'\'' nic1_port_group='\''Storage Controller Data Network'\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  vcenter='\''chpvc.mgmt.vf.rogers.com'\'' data_center_name='\''HyperFlex_RNOC_South'\'' dns_1='\''8.8.8.8'\'' folder_path='\''SCI_engineering'\'' nic_gateway_1='\''172.30.244.1'\'' '
++ shift
++ echo 'Running Ansible playbook'
+Running Ansible playbook
++ ansible-playbook -i /opt/jenkins-vm-create/inventory /opt/jenkins-vm-create/site.yml
+
+PLAY [vms deployment project "Version 1.0" Date 1st Feb 2018, ( ansible-2.4 have some bugs for this module) !!!!!!! Ansible UPgraded to 2.5] ***
+
+TASK [vm-create : Vms Provisioning] ********************************************
+changed: [jenkin-vm-001 -> localhost]
+
+TASK [vm-create : debug] *******************************************************
+ok: [jenkin-vm-001] => {
+    "deploy": {
+        "changed": true, 
+        "failed": false, 
+        "instance": {
+            "annotation": "", 
+            "current_snapshot": null, 
+            "customvalues": {}, 
+            "guest_consolidation_needed": false, 
+            "guest_question": null, 
+            "guest_tools_status": "guestToolsExecutingScripts", 
+            "guest_tools_version": "10277", 
+            "hw_cores_per_socket": 1, 
+            "hw_datastores": [
+                "DS_SDSI_Engineering_02"
+            ], 
+            "hw_esxi_host": "chpvc02.mgmt.vf.rogers.com", 
+            "hw_eth0": {
+                "addresstype": "assigned", 
+                "ipaddresses": null, 
+                "label": "Network adapter 1", 
+                "macaddress": "00:50:56:8c:b8:63", 
+                "macaddress_dash": "00-50-56-8c-b8-63", 
+                "summary": "Storage Controller Data Network"
+            }, 
+            "hw_files": [
+                "[DS_SDSI_Engineering_02] jenkin-vm-001/jenkin-vm-001.vmx", 
+                "[DS_SDSI_Engineering_02] jenkin-vm-001/jenkin-vm-001.nvram", 
+                "[DS_SDSI_Engineering_02] jenkin-vm-001/jenkin-vm-001.vmsd", 
+                "[DS_SDSI_Engineering_02] jenkin-vm-001/jenkin-vm-001.vmdk", 
+                "[DS_SDSI_Engineering_02] jenkin-vm-001/jenkin-vm-001_1.vmdk"
+            ], 
+            "hw_folder": "/HyperFlex_RNOC_South/vm/SCI_engineering", 
+            "hw_guest_full_name": "", 
+            "hw_guest_ha_state": null, 
+            "hw_guest_id": null, 
+            "hw_interfaces": [
+                "eth0"
+            ], 
+            "hw_is_template": false, 
+            "hw_memtotal_mb": 2048, 
+            "hw_name": "jenkin-vm-001", 
+            "hw_power_status": "poweredOn", 
+            "hw_processor_count": 2, 
+            "hw_product_uuid": "420c698a-f24f-8526-04bf-5d025a44bdd6", 
+            "instance_uuid": "500c52bc-61c0-1167-1d70-ac3479c8164d", 
+            "ipv4": null, 
+            "ipv6": null, 
+            "module_hw": true, 
+            "snapshots": []
+        }
+    }
+}
+
+TASK [vm-create : debug] *******************************************************
+ok: [jenkin-vm-001] => (item=None) => {
+    "msg": "172.30.244.124"
+}
+
+TASK [vm-create : Wait for VMs to come back] ***********************************
+ok: [jenkin-vm-001] => (item=jenkin-vm-001)
+
+TASK [vm-create : Adding new vms-group in inventory file] **********************
+fatal: [jenkin-vm-001]: FAILED! => {"changed": false, "msg": "Destination inventory_list does not exist !", "rc": 257}
+	to retry, use: --limit @/opt/jenkins-vm-create/site.retry
+
+PLAY RECAP *********************************************************************
+jenkin-vm-001              : ok=4    changed=1    unreachable=0    failed=1   
+
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

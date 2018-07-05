@@ -1,0 +1,31 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins1219498054682680125.sh
++ inventory_file_name=/opt/jenkins-vm-create/inventory
++ echo ''
++ echo '# Creating Inventory File for ansible Create VM Playbook'
+++ date +%H-%d%m%y
++ time_stamp=11-290618
++ echo '#  11-290618 '
++ echo '[vm_list]'
++ IFS='
+'
++ set -- 172.30.244.124
++ for i in '$vm_name'
++ printf '%s %s\n' vm_1 'ip_add_nic_1=172.30.244.124 datastore_name='\''DS_SDSI_Engineering_01'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''1'\'' cpu_nums='\''1'\'' disk_size_2='\''20'\'' nic1_port_group='\'''\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  vcenter='\''chpvc.mgmt.vf.rogers.com'\'' data_center_name='\''HyperFlex_RNOC_South'\'' dns_1='\''8.8.8.8'\'' folder_path='\''SCI_engineering'\'' nic_gateway_1='\''172.30.244.1'\'' '
++ shift
++ echo 'Running Ansible playbook'
+Running Ansible playbook
++ ansible-playbook -i /opt/jenkins-vm-create/inventory /opt/jenkins-vm-create/site.yml
+
+PLAY [vms deployment project "Version 1.0" Date 1st Feb 2018, ( ansible-2.4 have some bugs for this module) !!!!!!! Ansible UPgraded to 2.5] ***
+
+TASK [vm-create : Vms Provisioning] ********************************************
+fatal: [vm_1 -> localhost]: FAILED! => {"changed": false, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE", "rc": 1}
+	to retry, use: --limit @/opt/jenkins-vm-create/site.retry
+
+PLAY RECAP *********************************************************************
+vm_1                       : ok=0    changed=0    unreachable=0    failed=1   
+
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

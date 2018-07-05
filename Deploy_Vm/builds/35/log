@@ -1,0 +1,32 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins420298165497815742.sh
++ for a in '$vm_name'
++ echo vm_name_1,
+vm_name_1,
++ echo vm_name_1,
++ for a in '$vm_name'
++ echo vm_name_2,
+vm_name_2,
++ echo vm_name_2,
++ for a in '$vm_name'
++ echo vm_name_3,
+vm_name_3,
++ echo vm_name_3,
++ for a in '$vm_name'
++ echo vm_name_4
+vm_name_4
++ echo vm_name_4
++ for b in '$nic1_ip'
++ echo 192.168.10.11,
+192.168.10.11,
++ echo 192.168.10.11,
++ for b in '$nic1_ip'
++ echo 192.168.10,12,
+192.168.10,12,
++ echo 192.168.10,12,
++ for b in '$nic1_ip'
++ echo 192.168.10,13
+192.168.10,13
++ echo 192.168.10,13
+Finished: SUCCESS

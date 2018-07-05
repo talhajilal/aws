@@ -1,0 +1,385 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>First Jenkins Job for Deploy a Single VM. For demo.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@2.0">
+          <name>vcenter</name>
+          <description>Select Vcenter Option.</description>
+          <randomName>choice-parameter-2058483218216325</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>return[
+&apos;dspengvc01.mgmt.vf.rogers.com&apos;,
+&apos;chpvc.mgmt.vf.rogers.com&apos;
+]
+</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.ChoiceParameter>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>esxi_host</name>
+          <description>Select Esxi hosts</description>
+          <randomName>choice-parameter-2058483224670068</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;chpvc01.mgmt.vf.rogers.com&quot;, &quot;chpvc02.mgmt.vf.rogers.com&quot;]
+	}
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;chpvc02.mgmt.vf.rogers.com&quot;,	 &quot;chpvc03.mgmt.vf.rogers.com&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;Script Error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>vcenter</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>datastore</name>
+          <description></description>
+          <randomName>choice-parameter-2058483227546170</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (esxi_host.equals(&quot;chpvc01.mgmt.vf.rogers.com&quot;)) {
+  return [&quot;DS_SDSI_Engineering_0123&quot;, &quot;DS_SDSI_Engineering_02&quot;, &quot;SpringpathDS-FCH2021V1HH&quot;]
+}
+else if (esxi_host.equals(&quot;chpvc02.mgmt.vf.rogers.com&quot;)) {
+return [&quot;DS_SDSI_Engineering_01&quot;,	 &quot;DS_SDSI_Engineering_02&quot;, &quot;SpringpathDS-FCH2021V1HH&quot;]
+}
+else if (esxi_host.equals(&quot;chpvc03.mgmt.vf.rogers.com&quot;)) {
+return [&quot;DS_SDSI_Engineering_01&quot;, &quot;DS_SDSI_Engineering_02&quot;, &quot;SpringpathDS-FCH2021V1HH&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;Script Error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>esxi_host</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <hudson.model.TextParameterDefinition>
+          <name>nic1_ip</name>
+          <description>Nic1 IPs</description>
+          <defaultValue>10.10.10.10
+10.10.10.11
+10.10.10.12
+10.10.10.14</defaultValue>
+          <trim>false</trim>
+        </hudson.model.TextParameterDefinition>
+        <hudson.model.TextParameterDefinition>
+          <name>vm_name</name>
+          <description>Desire VM names</description>
+          <defaultValue>vm_1
+vm_2
+vm_3
+vm_4</defaultValue>
+          <trim>false</trim>
+        </hudson.model.TextParameterDefinition>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>vm_template_name</name>
+          <description>Select a pre defined redhat  7 template, for build.</description>
+          <randomName>choice-parameter-2069813399578081</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;no-redhat-7-template&quot;, &quot;redhat-7-template-not-available&quot;]
+	}
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;redhat-7-template&quot;, &quot;redhat-7-template-not-available&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;Script Error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>vcenter</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>ram_size</name>
+          <description>The ram size is in MBs mean will converted to GB by system</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>1024</string>
+              <string>2048</string>
+              <string>3072</string>
+              <string>4096</string>
+              <string>5120</string>
+              <string>6144</string>
+              <string>7168</string>
+              <string>8192</string>
+              <string>9216</string>
+              <string>10240</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>cpu_nums</name>
+          <description>CPU nums always come from template.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>1</string>
+              <string>2</string>
+              <string>3</string>
+              <string>4</string>
+              <string>5</string>
+              <string>6</string>
+              <string>7</string>
+              <string>8</string>
+              <string>9</string>
+              <string>10</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>disk_size_2</name>
+          <description>Enter Disk Size , size will automatically consider in GB.</description>
+          <defaultValue>20</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>nic1_port_group</name>
+          <description>Select primary network interface.</description>
+          <randomName>choice-parameter-2071172036292517</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+	return [ &quot;no1-network-vlan-available&quot;, &quot;no2-network-vlan-available&quot;, &quot;no1-network-vlan-available&quot;]
+	}
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	return [ &quot;Storage Controller Data Network&quot;, &quot;Storage Controller Management Network&quot;, &quot;Storage Controller Replication Network&quot;, &quot;VM Network&quot;, &quot;vm-network-70&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>vcenter</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>nic2_port_group</name>
+          <description>Select Port group for second network interface.</description>
+          <randomName>choice-parameter-2071172037387581</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;&quot;, &quot;no1-network-vlan-available&quot;, &quot;no2-network-vlan-available&quot;, &quot;no1-network-vlan-available&quot;]
+	}
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;&quot;, &quot;Storage Controller Data Network&quot;, &quot;Storage Controller Management Network&quot;, &quot;Storage Controller Replication Network&quot;, &quot;VM Network&quot;, &quot;vm-network-70&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>vcenter</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>nic3_port_group</name>
+          <description>Select Port group for third network interface.</description>
+          <randomName>choice-parameter-2071172038505060</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;&quot;, &quot;no1-network-vlan-available&quot;, &quot;no2-network-vlan-available&quot;, &quot;no1-network-vlan-available&quot;]
+	}
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	return [&quot;&quot;, &quot;Storage Controller Data Network&quot;, &quot;Storage Controller Management Network&quot;, &quot;Storage Controller Replication Network&quot;, &quot;VM Network&quot;, &quot;vm-network-70&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>vcenter</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <hudson.model.StringParameterDefinition>
+          <name>nic_netmask_1</name>
+          <description>Edit this, </description>
+          <defaultValue>255.255.255.0</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>nic_gateway_1</name>
+          <description></description>
+          <defaultValue>0.0.0.0</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <com.cloudbees.plugins.credentials.CredentialsParameterDefinition plugin="credentials@2.1.17">
+          <name>Vcenter_User_Password</name>
+          <description></description>
+          <defaultValue></defaultValue>
+          <credentialType>com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl</credentialType>
+          <required>true</required>
+        </com.cloudbees.plugins.credentials.CredentialsParameterDefinition>
+        <org.biouno.unochoice.CascadeChoiceParameter plugin="uno-choice@2.0">
+          <name>data_center_name</name>
+          <description>Please  must select data center name.</description>
+          <randomName>choice-parameter-2075259395864425</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1.44">
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+	return [ &quot;NO-Availble-01&quot;, &quot;not-Available-02&quot;, &quot;Not-Availble-03&quot;]
+	}
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	return [ &quot;HyperFlex_RNOC_South&quot;, &quot;Not-Availble&quot;]
+}
+else {
+return [&quot;Unknown state&quot;]
+}</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1.44">
+              <script>return[&apos;error&apos;]</script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>Deploy_Vm</projectName>
+          <parameters class="linked-hash-map"/>
+          <referencedParameters>vcenter</referencedParameters>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.CascadeChoiceParameter>
+        <hudson.model.StringParameterDefinition>
+          <name>dns_1</name>
+          <description>Change with desire IP address.</description>
+          <defaultValue>8.8.8.8</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>folder_path</name>
+          <description>We need to change this, Create a path relevant.</description>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>SCI_engineering</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#/bin/bash
+####################################################################
+####VM Deployment Script for Jenkins Paramterised variabled1########
+####Script Version 0.1										########
+#### First Released Date 28 June 2018						########
+####################################################################
+inventory_file_name=/opt/jenkins-vm-create/inventory
+echo $nic1_port_group &gt;&gt;  /tmp/test
+echo &quot;&quot; &gt; $inventory_file_name
+echo &quot;# Creating Inventory File for ansible Create VM Playbook&quot; &gt;&gt; $inventory_file_name
+time_stamp=`date +%H-%d%m%y`
+#
+echo &quot;#  $time_stamp &quot; &gt;&gt; $inventory_file_name
+#
+echo &quot;[vm_list]&quot; &gt;&gt; $inventory_file_name
+#
+IFS=&apos;
+&apos;
+set -- $nic1_ip
+for i in $vm_name
+do
+ printf &quot;%s %s\n&quot; &quot;$i&quot; &quot;ip_add_nic_1=$1 datastore_name=&apos;$datastore&apos; esxi_host_name=&apos;$esxi_host&apos; vm_template_name=&apos;$vm_template_name&apos; ram_size=&apos;$ram_size&apos; cpu_nums=&apos;$cpu_nums&apos; disk_size_2=&apos;$disk_size_2&apos; nic1_port_group=&apos;$nic1_port_group&apos; nic2_port_group=&apos;$nic2_port_group&apos; nic_netmask_1=&apos;$nic_netmask_1&apos;  vcenter=&apos;$vcenter&apos; data_center_name=&apos;$data_center_name&apos; dns_1=&apos;$dns_1&apos; folder_path=&apos;$folder_path&apos; nic_gateway_1=&apos;$nic_gateway_1&apos; &quot; &gt;&gt; $inventory_file_name
+  shift
+done
+
+echo &quot;Running Ansible playbook&quot;
+
+ansible-playbook -i $inventory_file_name /opt/jenkins-vm-create/site.yml
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

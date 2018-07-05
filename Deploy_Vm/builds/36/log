@@ -1,0 +1,36 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins8765449582299329672.sh
++ for a in '$vm_name'
++ echo host_a
+host_a
++ echo host_a
++ for a in '$vm_name'
++ echo host_b
+host_b
++ echo host_b
++ for a in '$vm_name'
++ echo host_c
+host_c
++ echo host_c
++ for a in '$vm_name'
++ echo host_d
+host_d
++ echo host_d
++ for b in '$nic1_ip'
++ echo 192.168.10.11
+192.168.10.11
++ echo 192.168.10.11
++ for b in '$nic1_ip'
++ echo 192.168.10
+192.168.10
++ echo 192.168.10
++ for b in '$nic1_ip'
++ echo 12
+12
++ echo 12
++ for b in '$nic1_ip'
++ echo 192.168.10.13
+192.168.10.13
++ echo 192.168.10.13
+Finished: SUCCESS

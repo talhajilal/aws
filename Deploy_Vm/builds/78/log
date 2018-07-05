@@ -1,0 +1,101 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins8128938778742945941.sh
++ inventory_file_name=/opt/jenkins-vm-create/inventory
++ echo Storage Controller Management Network
++ echo ''
++ echo '# Creating Inventory File for ansible Create VM Playbook'
+++ date +%H-%d%m%y
++ time_stamp=11-290618
++ echo '#  11-290618 '
++ echo '[vm_list]'
++ IFS='
+'
++ set -- 172.30.244.124
++ for i in '$vm_name'
++ printf '%s %s\n' jenkins-vm-001 'ip_add_nic_1=172.30.244.124 datastore_name='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'' ram_size='\''2048'\'' cpu_nums='\''2'\'' disk_size_2='\''20'\'' nic1_port_group='\''Storage Controller Management Network'\'' nic2_port_group='\'''\'' nic_netmask_1='\''255.255.255.0'\''  vcenter='\''chpvc.mgmt.vf.rogers.com'\'' data_center_name='\''HyperFlex_RNOC_South'\'' dns_1='\''8.8.8.8'\'' folder_path='\''SCI_engineering'\'' nic_gateway_1='\''172.30.244.1'\'' '
++ shift
++ echo 'Running Ansible playbook'
+Running Ansible playbook
++ ansible-playbook -i /opt/jenkins-vm-create/inventory /opt/jenkins-vm-create/site.yml
+
+PLAY [vms deployment project "Version 1.0" Date 1st Feb 2018, ( ansible-2.4 have some bugs for this module) !!!!!!! Ansible UPgraded to 2.5] ***
+
+TASK [vm-create : Vms Provisioning] ********************************************
+changed: [jenkins-vm-001 -> localhost]
+
+TASK [vm-create : debug] *******************************************************
+ok: [jenkins-vm-001] => {
+    "deploy": {
+        "changed": true, 
+        "failed": false, 
+        "instance": {
+            "annotation": "", 
+            "current_snapshot": null, 
+            "customvalues": {}, 
+            "guest_consolidation_needed": false, 
+            "guest_question": null, 
+            "guest_tools_status": "guestToolsExecutingScripts", 
+            "guest_tools_version": "10277", 
+            "hw_cores_per_socket": 1, 
+            "hw_datastores": [
+                "DS_SDSI_Engineering_02"
+            ], 
+            "hw_esxi_host": "chpvc02.mgmt.vf.rogers.com", 
+            "hw_eth0": {
+                "addresstype": "assigned", 
+                "ipaddresses": null, 
+                "label": "Network adapter 1", 
+                "macaddress": "00:50:56:8c:30:6c", 
+                "macaddress_dash": "00-50-56-8c-30-6c", 
+                "summary": "Storage Controller Management Network"
+            }, 
+            "hw_files": [
+                "[DS_SDSI_Engineering_02] jenkins-vm-001/jenkins-vm-001.vmx", 
+                "[DS_SDSI_Engineering_02] jenkins-vm-001/jenkins-vm-001.nvram", 
+                "[DS_SDSI_Engineering_02] jenkins-vm-001/jenkins-vm-001.vmsd", 
+                "[DS_SDSI_Engineering_02] jenkins-vm-001/jenkins-vm-001.vmdk", 
+                "[DS_SDSI_Engineering_02] jenkins-vm-001/jenkins-vm-001_1.vmdk"
+            ], 
+            "hw_folder": "/HyperFlex_RNOC_South/vm/SCI_engineering", 
+            "hw_guest_full_name": "", 
+            "hw_guest_ha_state": null, 
+            "hw_guest_id": null, 
+            "hw_interfaces": [
+                "eth0"
+            ], 
+            "hw_is_template": false, 
+            "hw_memtotal_mb": 2048, 
+            "hw_name": "jenkins-vm-001", 
+            "hw_power_status": "poweredOn", 
+            "hw_processor_count": 2, 
+            "hw_product_uuid": "420cb95c-d9cd-de7f-47db-0716574aa448", 
+            "instance_uuid": "500c752f-61c7-258e-9b7b-63e5c96d66d0", 
+            "ipv4": null, 
+            "ipv6": null, 
+            "module_hw": true, 
+            "snapshots": []
+        }
+    }
+}
+
+TASK [vm-create : debug] *******************************************************
+ok: [jenkins-vm-001] => (item=None) => {
+    "msg": "172.30.244.124"
+}
+
+TASK [vm-create : Wait for VMs to come back] ***********************************
+ok: [jenkins-vm-001] => (item=jenkins-vm-001)
+
+TASK [vm-create : Adding new vms-group in inventory file] **********************
+changed: [jenkins-vm-001]
+
+TASK [vm-create : adding new ips in inventory file] ****************************
+failed: [jenkins-vm-001] (item=jenkins-vm-001) => {"changed": false, "item": "jenkins-vm-001", "msg": "Destination inventory_list does not exist !", "rc": 257}
+	to retry, use: --limit @/opt/jenkins-vm-create/site.retry
+
+PLAY RECAP *********************************************************************
+jenkins-vm-001             : ok=5    changed=2    unreachable=0    failed=1   
+
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

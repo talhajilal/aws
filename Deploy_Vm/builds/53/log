@@ -1,0 +1,26 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins2786436567372458600.sh
++ inventory_file_name=/tmp/test_file
++ echo ''
++ echo '# Creating Inventory File for ansible Create VM Playbook'
+++ date +%H-%d%m%y
++ time_stamp=14-280618
++ echo '#  14-280618 '
++ echo '[vm_list]'
++ IFS='
+'
++ set -- 10.10.10.10 10.10.10.11 10.10.10.12 10.10.10.14
++ for i in '$vm_name'
++ printf '%s %s\n' vm_1 'ip_add_nic_1=10.10.10.10 datastore='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'''
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_2 'ip_add_nic_1=10.10.10.11 datastore='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'''
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_3 'ip_add_nic_1=10.10.10.12 datastore='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'''
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_4 'ip_add_nic_1=10.10.10.14 datastore='\''DS_SDSI_Engineering_0123'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\''redhat-7-template'\'''
++ shift
+Finished: SUCCESS

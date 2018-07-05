@@ -1,0 +1,143 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>vcenter</name>
+          <description>Select Vcenter Option.</description>
+          <value>chpvc.mgmt.vf.rogers.com</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>esxi_host</name>
+          <description>Select Esxi hosts</description>
+          <value>chpvc02.mgmt.vf.rogers.com</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>datastore</name>
+          <description></description>
+          <value>DS_SDSI_Engineering_0123</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.TextParameterValue>
+          <name>nic1_ip</name>
+          <description>Nic1 IPs</description>
+          <value>172.30.244.124</value>
+        </hudson.model.TextParameterValue>
+        <hudson.model.TextParameterValue>
+          <name>vm_name</name>
+          <description>Desire VM names</description>
+          <value>vm_1</value>
+        </hudson.model.TextParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>vm_template_name</name>
+          <description>Select a pre defined redhat  7 template, for build.</description>
+          <value>redhat-7-template</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>ram_size</name>
+          <description>Select a valid Ram size.</description>
+          <value>2</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>cpu_nums</name>
+          <description>CPU nums always come from template.</description>
+          <value>3</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>disk_size_2</name>
+          <description>Enter Disk Size , size will automatically consider in GB.</description>
+          <value>20</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>nic1_port_group </name>
+          <description>Select primary network interface.</description>
+          <value>Storage Controller Data Network</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>nic2_port_group</name>
+          <description>Select Port group for second network interface.</description>
+          <value></value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>nic3_port_group</name>
+          <description>Select Port group for third network interface.</description>
+          <value></value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>nic_netmask_1</name>
+          <description>Edit this, </description>
+          <value>255.255.255.0</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>nic_gateway_1</name>
+          <description></description>
+          <value>172.30.244.1</value>
+        </hudson.model.StringParameterValue>
+        <com.cloudbees.plugins.credentials.CredentialsParameterValue plugin="credentials@2.1.17">
+          <name>Vcenter_User_Password</name>
+          <description></description>
+          <value></value>
+          <isDefaultValue>true</isDefaultValue>
+        </com.cloudbees.plugins.credentials.CredentialsParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>data_center_name</name>
+          <description>Please  must select data center name.</description>
+          <value>HyperFlex_RNOC_South</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>dns_1</name>
+          <description>Change with desire IP address.</description>
+          <value>8.8.8.8</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>folder_path</name>
+          <description>We need to change this, Create a path relevant.</description>
+          <value>SCI_engineering</value>
+        </hudson.model.StringParameterValue>
+      </parameters>
+      <parameterDefinitionNames>
+        <string>vcenter</string>
+        <string>esxi_host</string>
+        <string>datastore</string>
+        <string>nic1_ip</string>
+        <string>vm_name</string>
+        <string>vm_template_name</string>
+        <string>ram_size</string>
+        <string>cpu_nums</string>
+        <string>disk_size_2</string>
+        <string>nic1_port_group </string>
+        <string>nic2_port_group</string>
+        <string>nic3_port_group</string>
+        <string>nic_netmask_1</string>
+        <string>nic_gateway_1</string>
+        <string>Vcenter_User_Password</string>
+        <string>data_center_name</string>
+        <string>dns_1</string>
+        <string>folder_path</string>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>tjilal</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+  </actions>
+  <queueId>121</queueId>
+  <timestamp>1530217937591</timestamp>
+  <startTime>1530217937594</startTime>
+  <result>FAILURE</result>
+  <duration>587</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/var/lib/jenkins/workspace/Deploy_Vm</workspace>
+  <hudsonVersion>2.129</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+  <culprits class="com.google.common.collect.EmptyImmutableSortedSet"/>
+</build>

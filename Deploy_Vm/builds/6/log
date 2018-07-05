@@ -1,0 +1,21 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins3551377893522280398.sh
++ echo ' datastore='\''DS_SDSI_Engineering_01'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\'''\'' vm='\''host_1, host_2, host_3, host_4'\'' '
++ for i in '$vm_name'
++ echo host_1,
+host_1,
++ echo host_1, ' datastore='\''DS_SDSI_Engineering_01'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\'''\'' '
++ for i in '$vm_name'
++ echo host_2,
+host_2,
++ echo host_2, ' datastore='\''DS_SDSI_Engineering_01'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\'''\'' '
++ for i in '$vm_name'
++ echo host_3,
+host_3,
++ echo host_3, ' datastore='\''DS_SDSI_Engineering_01'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\'''\'' '
++ for i in '$vm_name'
++ echo host_4
+host_4
++ echo host_4 ' datastore='\''DS_SDSI_Engineering_01'\'' esxi_host_name='\''chpvc02.mgmt.vf.rogers.com'\'' vm_template_name='\'''\'' '
+Finished: SUCCESS

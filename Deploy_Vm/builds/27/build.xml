@@ -1,0 +1,64 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <safeParameters class="sorted-set"/>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>vcenter</name>
+          <description>Select Vcenter Option.</description>
+          <value>chpvc.mgmt.vf.rogers.com</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>esxi_host</name>
+          <description>Select Esxi hosts</description>
+          <value>chpvc02.mgmt.vf.rogers.com</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>datastore</name>
+          <description></description>
+          <value>DS_SDSI_Engineering_0123</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>vm_name</name>
+          <description>Valid VM names.</description>
+          <value>vm_name_1, vm_name_2, vm_name_3, vm_name_4</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>nic1_ip</name>
+          <description>Valid IP addresses for VMs</description>
+          <value>192.168.10.11, 192.168.10,12, 192.168.10,13</value>
+        </hudson.model.StringParameterValue>
+      </parameters>
+      <parameterDefinitionNames>
+        <string>vcenter</string>
+        <string>esxi_host</string>
+        <string>datastore</string>
+        <string>vm_name</string>
+        <string>nic1_ip</string>
+      </parameterDefinitionNames>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>tjilal</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+  </actions>
+  <queueId>77</queueId>
+  <timestamp>1530206635684</timestamp>
+  <startTime>1530206635687</startTime>
+  <result>SUCCESS</result>
+  <duration>17</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/var/lib/jenkins/workspace/Deploy_Vm</workspace>
+  <hudsonVersion>2.129</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+  <culprits class="com.google.common.collect.EmptyImmutableSortedSet"/>
+</build>

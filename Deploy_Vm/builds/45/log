@@ -1,0 +1,20 @@
+Started by user [8mha:////4GH73ODHBE2ic3HCSKVpL6HeTw7XsqmewBZ42IK4oxl5AAAAmB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzuEgYe/dLi1CL9kqzMnMQcACdUx1TBAAAA[0mTalha Jilal
+Building in workspace /var/lib/jenkins/workspace/Deploy_Vm
+[Deploy_Vm] $ /bin/sh -xe /tmp/jenkins2277142184476731840.sh
++ IFS='
+'
++ set -- 10.10.10.10 10.10.10.11 10.10.10.12
++ for i in '$vm_name'
++ printf '%s %s\n' vm_1 'a=10.10.10.10 '
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_2 'a=10.10.10.11 '
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_3 'a=10.10.10.12 '
++ shift
++ for i in '$vm_name'
++ printf '%s %s\n' vm_4 'a= '
++ shift
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE
