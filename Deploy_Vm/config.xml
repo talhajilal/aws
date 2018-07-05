@@ -14,8 +14,8 @@
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
               <script>return[
-&apos;dspengvc01.mgmt.vf.rogers.com&apos;,
-&apos;chpvc.mgmt.vf.rogers.com&apos;
+&apos;dspengvc01.mgmt.vf.talhalab.com&apos;,
+&apos;chpvc.mgmt.vf.talhalab.com&apos;
 ]
 </script>
               <sandbox>false</sandbox>
@@ -37,11 +37,11 @@
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
-	return [&quot;chpvc01.mgmt.vf.rogers.com&quot;, &quot;chpvc02.mgmt.vf.rogers.com&quot;]
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.talhalab.com&quot;)) {
+	return [&quot;chpvc01.mgmt.vf.talhalab.com&quot;, &quot;chpvc02.mgmt.vf.talhalab.com&quot;]
 	}
-	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
-	return [&quot;chpvc02.mgmt.vf.rogers.com&quot;,	 &quot;chpvc03.mgmt.vf.rogers.com&quot;]
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.talhalab.com&quot;)) {
+	return [&quot;chpvc02.mgmt.vf.talhalab.com&quot;,	 &quot;chpvc03.mgmt.vf.talhalab.com&quot;]
 }
 else {
 return [&quot;Unknown state&quot;]
@@ -67,13 +67,13 @@ return [&quot;Unknown state&quot;]
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (esxi_host.equals(&quot;chpvc01.mgmt.vf.rogers.com&quot;)) {
+              <script>if (esxi_host.equals(&quot;chpvc01.mgmt.vf.talhalab.com&quot;)) {
   return [&quot;DS_SDSI_Engineering_0123&quot;, &quot;DS_SDSI_Engineering_02&quot;, &quot;SpringpathDS-FCH2021V1HH&quot;]
 }
-else if (esxi_host.equals(&quot;chpvc02.mgmt.vf.rogers.com&quot;)) {
+else if (esxi_host.equals(&quot;chpvc02.mgmt.vf.talhalab.com&quot;)) {
 return [&quot;DS_SDSI_Engineering_01&quot;,	 &quot;DS_SDSI_Engineering_02&quot;, &quot;SpringpathDS-FCH2021V1HH&quot;]
 }
-else if (esxi_host.equals(&quot;chpvc03.mgmt.vf.rogers.com&quot;)) {
+else if (esxi_host.equals(&quot;chpvc03.mgmt.vf.talhalab.com&quot;)) {
 return [&quot;DS_SDSI_Engineering_01&quot;, &quot;DS_SDSI_Engineering_02&quot;, &quot;SpringpathDS-FCH2021V1HH&quot;]
 }
 else {
@@ -118,10 +118,10 @@ vm_4</defaultValue>
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.talhalab.com&quot;)) {
 	return [&quot;no-redhat-7-template&quot;, &quot;redhat-7-template-not-available&quot;]
 	}
-	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.talhalab.com&quot;)) {
 	return [&quot;redhat-7-template&quot;, &quot;redhat-7-template-not-available&quot;]
 }
 else {
@@ -190,10 +190,10 @@ return [&quot;Unknown state&quot;]
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.talhalab.com&quot;)) {
 	return [ &quot;no1-network-vlan-available&quot;, &quot;no2-network-vlan-available&quot;, &quot;no1-network-vlan-available&quot;]
 	}
-	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.talhalab.com&quot;)) {
 	return [ &quot;Storage Controller Data Network&quot;, &quot;Storage Controller Management Network&quot;, &quot;Storage Controller Replication Network&quot;, &quot;VM Network&quot;, &quot;vm-network-70&quot;]
 }
 else {
@@ -220,10 +220,10 @@ return [&quot;Unknown state&quot;]
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.talhalab.com&quot;)) {
 	return [&quot;&quot;, &quot;no1-network-vlan-available&quot;, &quot;no2-network-vlan-available&quot;, &quot;no1-network-vlan-available&quot;]
 	}
-	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.talhalab.com&quot;)) {
 	return [&quot;&quot;, &quot;Storage Controller Data Network&quot;, &quot;Storage Controller Management Network&quot;, &quot;Storage Controller Replication Network&quot;, &quot;VM Network&quot;, &quot;vm-network-70&quot;]
 }
 else {
@@ -250,10 +250,10 @@ return [&quot;Unknown state&quot;]
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.talhalab.com&quot;)) {
 	return [&quot;&quot;, &quot;no1-network-vlan-available&quot;, &quot;no2-network-vlan-available&quot;, &quot;no1-network-vlan-available&quot;]
 	}
-	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.talhalab.com&quot;)) {
 	return [&quot;&quot;, &quot;Storage Controller Data Network&quot;, &quot;Storage Controller Management Network&quot;, &quot;Storage Controller Replication Network&quot;, &quot;VM Network&quot;, &quot;vm-network-70&quot;]
 }
 else {
@@ -299,10 +299,10 @@ return [&quot;Unknown state&quot;]
           <visibleItemCount>1</visibleItemCount>
           <script class="org.biouno.unochoice.model.GroovyScript">
             <secureScript plugin="script-security@1.44">
-              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.rogers.com&quot;)) {
+              <script>if (vcenter.equals(&quot;dspengvc01.mgmt.vf.talhalab.com&quot;)) {
 	return [ &quot;NO-Availble-01&quot;, &quot;not-Available-02&quot;, &quot;Not-Availble-03&quot;]
 	}
-	else if (vcenter.equals(&quot;chpvc.mgmt.vf.rogers.com&quot;)) {
+	else if (vcenter.equals(&quot;chpvc.mgmt.vf.talhalab.com&quot;)) {
 	return [ &quot;HyperFlex_RNOC_South&quot;, &quot;Not-Availble&quot;]
 }
 else {
