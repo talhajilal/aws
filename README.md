@@ -1,3 +1,5 @@
+https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/
+
 # aws
 AWS learning and scripting notes
 
