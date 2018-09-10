@@ -1,0 +1,2036 @@
+// Readme , 
+1- install media 
+2- create / edit page. 
+3- copy paste below contents and backup 
+
+'''MediaWiki has been successfully installed.'''
+
+Consult the [//meta.wikimedia.org/wiki/Help:Contents User's Guide] for information on using the wiki software.
+===To Do List===
+<pre>
+1- Clean Wiki and arranged
+2- Now I am going to home I will prepare this list later
+
+Iptables Documents
+Nginx As Cache Server Docs
+
+
+Solaris Learning
+1- Solaris Installation 10 and 11 
+2- VCS configuration
+</pre>
+
+==Currently Working On==
+Vcenter Installation 
+Storage solution 
+<pre>
+1- Vcenter installed for 30 days, trying to find key
+2- hosts are ready and connected with Vcenter 
+3- Data Storage
+
+
+</pre>
+
+
+
+==Raspberry PI==
+
+<pre>
+How to copy image from SD card to local computer 
+
+1- Use Win32diskiamge.exe 
+
+2- Provide image file name (brows folder where you want to store image name )
+we are going to read image from SD card and going to write some where on local computer disk ( c:/imgae_name_version.img).
+3- Click read and wait for a while
+
+</pre>
+
+
+==Raspberry PI Known Issues==
+
+<pre>
+1- Power Supply Should be good for 1st installation and configuration
+Reason, we have to configure different components and for components we attach USB keyboard mouse wireles card and LAN card. 
+These all hardware components consume some Electric power to perform action.
+
+2- Wireless Cards
+If is hard to select a perfect wireless card, depend what product we are planing to configure and install on our RPI
+
+3- For Development we can try to use qemu, it is free opensource software that also available for Windows 7,xp,
+
+</pre>
+
+==Bash vulnerable check Against shellshock==
+
+<pre>
+
+env 'VAR=() { :;}; echo Bash is vulnerable!' 'FUNCTION()=() { :;}; echo Bash is vulnerable!' bash -c "echo Bash Test"
+
+
+
+OUT PUT 
+
+Bash is vulnerable!
+bash: FUNCTION(): line 0: syntax error near unexpected token `)'
+bash: FUNCTION(): line 0: `FUNCTION() () { :;}; echo Bash is vulnerable!'
+bash: error importing function definition for `FUNCTION'
+Bash Test
+
+
+
+Run this command and update bash 
+
+yum update bash
+</pre>
+
+=Topics and Discussions= 
+
+=How to Build Linux RPM Package=
+==RWHOIS==
+=Description=
+The RWHOIS service provides reverse whois lookups for IP Address ranges.  These are generally required on the internet.   See the troubleshooting section for examples of queries and their results.
+
+===Common Issues and Resolutions===
+None
+
+===Troubleshooting Steps===
+* The Rwhois service runs on port 4321. A good first step is to check if those ports are open and listening on each rwhois server.   If not you should begin checking to ensure the service is running and that the firewalls will allow connections on these ports.
+
+* The following example shows how to query data from the server in a raw way.  This is a good way to test if the server is actually returning results.   If you get a complaint about a specific range not being returned properly, this is a quick and easy way to test.
+
+<pre>
+priv-clgrps04 # telnet localhost 4321 
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+%rwhois V-1.5:001ab7:00 rwhois.abc.net (by Network Solutions, Inc. V-1.5.9.5)
+206.108.196.104/29
+network:Class-Name:network
+network:ID:100123578007286566.206.108.192.0/19
+network:Auth-Area:206.108.192.0/19
+network:Network-Name:AGNICO-EAGLE MINES LIMITED
+network:IP-Network:206.108.196.104/29
+network:Org-Name:AGNICO-EAGLE MINES LIMITED
+network:Street-Address:Not Defined
+network:City:Not Defined
+network:State-Province:Not Defined
+network:Postal-Code:Not Defined
+network:Admin-Contact:hostmaster@abc.com
+network:Abuse-Contact:abuse@abc.com (            1-604-444-5791      )
+network:Tech-Contact:ipadmin@abc.com
+network:Created:2007-11-30 (12:00:00)
+network:Updated:2010-01-26 (12:00:00)
+
+%ok
+Connection to localhost closed by foreign host.
+priv-clgrps04 # 
+</pre>
+
+
+
+
+
+
+
+= System BASH Scripting for VM Cloning Cloud Deployment = 
+== Setting Script output colors == 
+<pre>
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+echo -e ${RED} YOUR ERROR MESSAGE HERE${NC}
+echo -e ${GREEN} YOUR SUCCESS MESSAGE HERE${NC}
+</pre>
+== Network Bond Configuration Script Red hat Linux ==
+
+<pre>
+
+#/bin/bash
+echo "Please enter ip-address"
+read ip
+cp /etc/sysconfig/network-scripts/ifcfg-eth0  /etc/sysconfig/network-scripts/ifcfg-eth0-backup
+cp /etc/sysconfig/network-scripts/ifcfg-eth1  /etc/sysconfig/network-scripts/ifcfg-eth1-backup
+
+echo "DEVICE=eth1" > /etc/sysconfig/network-scripts/ifcfg-eth1 
+echo "USERCTL=no"  >> /etc/sysconfig/network-scripts/ifcfg-eth1
+echo "MASTER=bond0" >> /etc/sysconfig/network-scripts/ifcfg-eth1
+echo "SLAVE=yes"	>> /etc/sysconfig/network-scripts/ifcfg-eth1 
+echo "ONBOOT=no"	>> /etc/sysconfig/network-scripts/ifcfg-eth1 
+echo "BOOTPROTO=none"  >> /etc/sysconfig/network-scripts/ifcfg-eth1
+
+
+
+echo "DEVICE=eth0" > /etc/sysconfig/network-scripts/ifcfg-eth0
+echo "USERCTL=no"  >> /etc/sysconfig/network-scripts/ifcfg-eth0 
+echo "MASTER=bond0" >> /etc/sysconfig/network-scripts/ifcfg-eth0 
+echo "SLAVE=yes"	>> /etc/sysconfig/network-scripts/ifcfg-eth0 
+echo "ONBOOT=no"	>> /etc/sysconfig/network-scripts/ifcfg-eth0 
+echo "BOOTPROTO=none"  >> /etc/sysconfig/network-scripts/ifcfg-eth0  
+
+
+echo "DEVICE=bond0
+ONBOOT=yes
+USERCTL=no
+NETWORK=10.160.0.0
+NETMASK=255.255.0.0
+IPADDR=$ip
+GATEWAY=10.160.0.1 "   > /etc/sysconfig/network-scripts/ifcfg-bond0
+
+
+
+echo "alias bond0 bonding
+options bond0 miimon=100 mode=1
+alias bond1 bonding
+options bond1 miimon=100 mode=1
+"  > /etc/modprobe.d/bonding.conf
+
+echo "search quickplay.local
+nameserver 10.89.0.11
+nameserver 10.89.0.12
+nameserver 10.89.0.13
+" >> /etc/resolv.conf 
+modprobe bond0 ; /etc/init.d/network restart
+
+</pre>
+
+== VM Cloning firstboot script== 
+
+<pre>
+#/bin/bash
+echo "Please Enter IP address"
+read ip
+if [[ "$ip" =~ ^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$ ]]
+then
+    for (( i=1; i<${#BASH_REMATCH[@]}; ++i ))
+    do
+      (( ${BASH_REMATCH[$i]} <= 255 )) || { echo "bad ip" >&2; exit 1; }
+    done
+else
+      echo "bad ip" >&2
+      exit 1;
+fi
+echo "Please enter netmask"
+read netmask
+if [[ "$netmask" =~ ^([2][5][5])[.]([2][5][5])[.]([0-9]{1,3})[.]([0-9]{1,3})$ ]]
+then
+    for (( i=1; i<${#BASH_REMATCH[@]}; ++i ))
+    do
+      (( ${BASH_REMATCH[$i]} <= 255 )) || { echo "bad netmask please correct" >&2; exit 1; }
+    done
+else
+      echo "bad netmask please correct and re run script" >&2
+      exit 1;
+fi
+echo "please enter default gateway"
+read gateway
+if [[ "$gateway" =~ ^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$ ]]
+then
+    for (( i=1; i<${#BASH_REMATCH[@]}; ++i ))
+    do
+      (( ${BASH_REMATCH[$i]} <= 255 )) || { echo "bad ip" >&2; exit 1; }
+    done
+else
+      echo "bad gateway please re-run this script and enter a valid IP address" >&2
+      exit 1;
+fi
+echo "Please enter network interface name i.e eth0 or eth1"
+read interface
+mac=$(ifconfig  $interface | grep HWaddr  | awk '{print $5}')
+echo "DEVICE=eth0" > /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "TYPE=Ethernet" >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "ONBOOT=yes" >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "BOOTPROTO=none" >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "IPADDR=$ip" >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "NETMASK=$netmask" >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "GATEWAY=$gateway" >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "IPV6INIT=no "  >> /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "HWADDR=$mac" >>  /etc/sysconfig/network-scripts/ifcfg-$interface
+echo "Following Network Configuration Completed, $ip $gateway for $interface"
+echo "Please enter hostname i.e san-prod-att-webapp-01"
+read hostname
+sed -i '2d' /etc/sysconfig/network
+echo "HOSTNAME=$hostname" >> /etc/sysconfig/network
+echo " Cleaning Old Network interface etc"
+echo "/bin/rm -f /etc/udev/rules.d/70*"
+/bin/rm -f /etc/udev/rules.d/70*
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5K0uZ3trdf6k7HVRwW+4LfM2YAR86KRUWAfpcd                                                                                                                                                             cpDQGp6qyDsPMTkVtPfeXg44cHhEM1WBkv6/SJczDjrq71DdKpF92IGsf0Di7y2OOPXEqeAdAJZUZWN9
+echo "san-prod-mon-01 ssh shared key added"
+echo " Reboot SYSTEM TO APPLY NEW CONFIGS"
+echo $ip $hostname >> /etc/hosts
+
+</pre>
+
+== Web server configuration script for my cloud==
+
+<pre>
+
+#!/bin/bash
+env=att
+hostname=$(hostname)
+app=$(echo $hostname | sed 's/webapp/app/g')
+cp -R /etc/httpd/conf.d/vstb.conf /etc/httpd/conf.d/vstb.conf`date +"%Y%m%d"`
+
+echo 'Listen 10201'  > /etc/httpd/conf.d/vstb.conf
+echo '<VirtualHost *:10201> '   >> /etc/httpd/conf.d/vstb.conf
+echo 'ServerAdmin root@localhost'   >> /etc/httpd/conf.d/vstb.conf
+echo "ServerName $hostname"   >> /etc/httpd/conf.d/vstb.conf
+echo 'UseCanonicalName Off'    >> /etc/httpd/conf.d/vstb.conf
+echo " " >> /etc/httpd/conf.d/vstb.conf
+echo " " >> /etc/httpd/conf.d/vstb.conf
+echo 'ErrorLog "|/usr/sbin/rotatelogs -l /nfs/apache_logs/$env/httpd-$hostname-vstb01-01-error_log.%Y-%m-%d 86400"'  >> /etc/httpd/conf.d/vstb.conf
+echo 'CustomLog "|/usr/sbin/rotatelogs -l /nfs/apache_logs/$env/httpd-$hostname-vstb01-01-access_log.%Y-%m-%d 86400" combinedio-extended' >> /etc/httpd/conf.d/vstb.conf
+
+echo " " >> /etc/httpd/conf.d/vstb.conf
+echo " " >> /etc/httpd/conf.d/vstb.conf
+
+
+
+echo  'ProxyRequests Off' >> /etc/httpd/conf.d/vstb.conf
+echo  'ProxyPreserveHost On'   >> /etc/httpd/conf.d/vstb.conf
+echo  '<Proxy *>'        >> /etc/httpd/conf.d/vstb.conf
+echo  'Order deny,allow'     >> /etc/httpd/conf.d/vstb.conf
+echo  'Allow from all'      >> /etc/httpd/conf.d/vstb.conf
+echo  '</Proxy>'     >> /etc/httpd/conf.d/vstb.conf
+
+
+echo " " >> /etc/httpd/conf.d/vstb.conf
+echo " " >> /etc/httpd/conf.d/vstb.conf
+
+echo  '<Location /vstb>'      >> /etc/httpd/conf.d/vstb.conf
+echo   'Header set Access-Control-Allow-Origin "*" '      >> /etc/httpd/conf.d/vstb.conf
+echo   'Header set Access-Control-Allow-Headers "x-requested-with" '    >> /etc/httpd/conf.d/vstb.conf
+echo   ' Header set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE" '   >> /etc/httpd/conf.d/vstb.conf
+echo   "ProxyPass http://$app:10201/vstb"       >> /etc/httpd/conf.d/vstb.conf
+echo   "ProxyPassReverse http://$app:10201/vstb "     >> /etc/httpd/conf.d/vstb.conf
+echo   '</Location>'       >> /etc/httpd/conf.d/vstb.conf
+
+echo " " >> /etc/httpd/conf.d/vstb.conf
+echo " " >> /etc/httpd/conf.d/vstb.conf
+
+echo    '</VirtualHost>'   >> /etc/httpd/conf.d/vstb.conf
+echo $hostname
+
+</pre>
+== Weblogic  Installation Automation Scripting== 
+== Node Manager Installation Script== 
+<pre>
+#!/bin/bash
+## Writer Talah Jilal 
+## Version 1.0.1 
+#!/bin/bash
+cat /etc/passwd | grep weblogic
+c=$(echo $?)
+if [ "$c" -eq 0 ]; then
+echo "Continue......"
+else
+echo "Please create weblogic user and run this script again"
+exit 0
+fi
+domain_name=san_prod_wl1034_att_domain01
+echo "Script is going to sleep for 10 seconds please make sure if you changed Weblogic Domain nanme accordingly"
+echo "$domain_name"
+echo "if this is not correct Weblogic Domain name please Press CTRL +C and re-run after correction"
+sleep 10
+### Step 1 ####
+echo " Performing Step 1, creating directrices"
+mkdir /opt/nodemanager_1034
+chmod 755 /opt/nodemanager_1034
+cp -R /home/user/nodemanager.domains /opt/nodemanager_1034/
+cp -R /home/user/nodemanager.properties /opt/nodemanager_1034
+chown weblogic:weblogic /opt/nodemanager_1034
+chown weblogic:weblogic /opt/nodemanager_1034 -R 
+echo " Directories created If you want to break Nodemanager installation Please Press CTRL + C"
+sleep 5
+######step 2####
+################
+echo " Step 2 "
+echo "Verifying hostname correct under /etc/sysconfig/network"
+hostname=$(hostname)
+cat  /etc/sysconfig/network | grep $hostname
+a=$(echo $?)
+if [ "$a" -eq 0 ]; then
+        echo "Nothing To do $hostname already correct in network file"
+else
+echo "HOSTNAME=$hostname" >> /etc/sysconfig/network
+fi
+echo " hostname validataion done Please Press CTRL + C if you want to discontinue this setup"
+sleep 5 
+##############
+##Step 3######
+##############
+echo "Step 3"
+echo " verifying rngd"
+cat /etc/sysconfig/rngd | grep EXTRAOPTIONS
+b=$(echo $?)
+if [ "$b" -eq 0 ]; then
+        echo "Nothing To do already there"
+else
+echo "EXTRAOPTIONS="-r /dev/urandom"" >> /etc/sysconfig/rngd
+fi
+echo " Pleas Press press CTRL +C if you want discontinue this setup "
+sleep 5 
+
+
+#Fixing domain name , ipaddress################
+
+echo " Notice "Did you change Weblogic domain name accordingly ?????"
+echo " Fixing the following commponents 
+echo "ListenAddress in nodemanager.properties"
+echo "LogFile in nodemanager.properties"
+echo "domain name in nodemanager.domains"
+domain_name=san_prod_wl1034_att_domain01
+ip=$(ifconfig eth0| grep 'inet addr:' | cut -d: -f2 | awk '{print $1}')
+hostname=$(hostname)
+sed -i  '/ListenAddress/d'  /opt/nodemanager_1034/nodemanager.properties
+echo "ListenAddress=$ip" >> nodemanager.properties 
+# Fixing log directory#####
+sed  -i  '/LogFile/d'    /opt/nodemanager_1034/nodemanager.properties
+echo "LogFile=/bealogs/$domain_name/nodemanagers/$hostname.log"   >>   nodemanager.properties
+#### Chaning Domain name and directory in nodemanager.domains ####
+echo "" > /opt/nodemanager_1034/nodemanager.domains 
+echo "$domain_name=/opt/bea_data/domains/$domain_name
+
+##################### Fixes #######################
+echo " Fixing Domain name IP address in nodemanager"
+
+echo "Creating backup"
+echo "cp /opt/nodemanager_1034/nodemanager.properties  /opt/nodemanager_1034/nodemanager.properties.orig"
+echo "cp /opt/nodemanager_1034/nodemanager.domains /opt/nodemanager_1034/nodemanager.domains.orig" 
+cp /opt/nodemanager_1034/nodemanager.properties  /opt/nodemanager_1034/nodemanager.properties.orig
+cp /opt/nodemanager_1034/nodemanager.domains /opt/nodemanager_1034/nodemanager.domains.orig
+
+echo " Notice "Did you change domain name accordingly ?????"
+echo " Fixing the following commponents
+echo "ListenAddress in nodemanager.properties"
+echo "LogFile in nodemanager.properties"
+echo "domain name in nodemanager.domains"
+sed -i  '/ListenAddress/d'  /opt/nodemanager_1034/nodemanager.properties
+echo "ListenAddress=$ip" >> /opt/nodemanager_1034/nodemanager.properties
+sed  -i  '/LogFile/d'    /opt/nodemanager_1034/nodemanager.properties
+echo "LogFile=/bealogs/$domain_name/nodemanagers/$hostname.log"   >> /opt/nodemanager_1034/nodemanager.properties
+echo "$domain_name=/opt/bea_data/domains/$domain_name" > /opt/nodemanager_1034/nodemanager.docmains
+
+echo " Please wait validating nodemanager installation"
+d=$(stat -c '%U' /opt/nodemanager_1034/)
+if [ "$d" == weblogic1 ];
+then
+echo " /opt/nodemanager_1034 ownership is good"
+else
+echo "Please  run this command manually "
+echo "chwon weblogic:weblogic /opt/nodemanager_1034 -R "
+fi
+
+</pre>
+
+=Rwhois Migration Linux Centos 6.x=
+<pre>
+RPM BUILDING PROCESS FOR RWHOIS 
+1-	Download latest tar package from  rwhois website
+#cd /usr/src
+#wget http://projects.arin.net/rwhois/ftp/rwhoisd-1.5.9.5.tar.gz
+#tar –xvf rwhoisd-1.5.9.5.tar.gz
+# cd rwhoisd-1.5.9.5
+# vim mkdb/index.c
+Add following line to fix reindexing issue after index.h area
+#define NEW_STYLE_BIN_SORT
+#./configure –prefix=/usr/local/rwhoisd2
+#make
+#make install
+2-	Copy configuration files from priv-clgrps04 to rpmbuild server under tmp directory.  /tmp/rwhoisd2
+#scp –r rwhoisd2 remotehost:/tmp/
+#scp /etc/init.d/rwhois remotehost:/tmp/rwhoisd2/etc/init.d/
+3-	Copy necessary files from tmp directory to /usr/local/rwhoisd2 directory. More details can be find from rpm spec file
+4-	Run the tar gz command to compress folder as new source code. 
+#mv /usr/local/rwhoisd2 /usr/local/rwhoisd-1.5.9.5
+#cd /usr/local/ 
+#tar –zcvf rwhoisd-1.5.9.5.tar.gz  rwhoisd-1.5.9.5
+5-	Copy new source to /root/rpmbuild/SOURCE directory
+# cp /usr/local/ rwhoisd-1.5.9.5.tar.gz /root/rpmbuild/SOURCE/.
+6-	Work around with rwhoisd.spec file and copy necessary files in rpm package. 
+
+</pre>
+
+
+<pre>
+# Procedure, Because I need to install rwhois as a custom.
+%define        __spec_install_post %{nil}
+%define          debug_package %{nil}
+%define        __os_install_post %{_dbpath}/brp-compress
+Summary: A very simple rwhois bin rpm package
+Name: rwhoisd
+Version: 1.5.9.5
+Release: 1
+License: GPL+
+Group: Development/Tools
+SOURCE0 : %{name}-%{version}.tar.gz
+URL: http://projects.arin.net/rwhois/ftp
+BuildRoot: %{_backup1path}/%{name}-%{version}-root
+%description
+%{summary}
+%prep
+%setup -q
+%build
+# Empty section.
+%install
+rm -rf %{buildroot}
+mkdir -p  %{buildroot}
+install -d  %{buildroot}/usr/local/rwhoisd2
+install -d  %{buildroot}/usr/local/rwhoisd2/data
+install -d  %{buildroot}/usr/local/rwhoisd2/var
+install -d  %{buildroot}/usr/local/rwhoisd2/var/run
+install -d  %{buildroot}/usr/local/rwhoisd2/var/log
+install -d  %{buildroot}/usr/local/rwhoisd2/bin
+install -d  %{buildroot}/usr/local/rwhoisd2/sbin
+install -d  %{buildroot}/usr/local/rwhoisd2/etc
+install -d  %{buildroot}/usr/local/rwhoisd2/init.d
+install -d  %{buildroot}/usr/local/rwhoisd2/backups
+install -d  %{buildroot}/usr/local/rwhoisd2/incoming
+install -d  %{buildroot}/usr/local/rwhoisd2/tmp
+install -d  %{buildroot}/usr/local/rwhoisd2/scripts
+cp -R /usr/local/rwhoisd-1.5.9.5/data %{buildroot}/usr/local/rwhoisd2/
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.conf  %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.conf
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.x.dir %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.x.dir
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.root %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.root
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.dir %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.dir
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.deny %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.deny
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.auth_area %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.auth_area
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/rwhoisd.allow %{buildroot}/usr/local/rwhoisd2/etc/rwhoisd.allow
+install -m 755 /usr/local/rwhoisd-1.5.9.5/sbin/rwhoisd  %{buildroot}/usr/local/rwhoisd2/sbin/rwhoisd
+install -m 755 /usr/local/rwhoisd-1.5.9.5/bin/rwhois_repack %{buildroot}/usr/local/rwhoisd2/bin/rwhois_repack
+install -m 755 /usr/local/rwhoisd-1.5.9.5/bin/rwhois_indexer %{buildroot}/usr/local/rwhoisd2/bin/rwhois_indexer
+install -m 755 /usr/local/rwhoisd-1.5.9.5/bin/rwhois_deleter  %{buildroot}/usr/local/rwhoisd2/bin/rwhois_deleter
+install -d 755 /usr/local/rwhoisd-1.5.9.5/data  %{buildroot}/usr/local/rwhoisd2/data
+install -m 755 /usr/local/rwhoisd-1.5.9.5/etc/init.d/rwhois %{buildroot}/usr/local/rwhoisd2/init.d/rwhois
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/import_latest_archive.pl        %{buildroot}/usr/local/rwhoisd2/scripts/import_latest_archive.pl
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/do_update_from_clgrps04.sh      %{buildroot}/usr/local/rwhoisd2/scripts/do_update_from_clgrps04.sh
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/check_if_updated.pl             %{buildroot}/usr/local/rwhoisd2/scripts/check_if_updated.pl
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/download_archive.pl             %{buildroot}/usr/local/rwhoisd2/scripts/download_archive.pl
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/sync_to_others.pl               %{buildroot}/usr/local/rwhoisd2/scripts/sync_to_others.pl
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/stripipv6.pl                    %{buildroot}/usr/local/rwhoisd2/scripts/stripipv6.pl
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/make_archive_and_download.pl    %{buildroot}/usr/local/rwhoisd2/scripts/make_archive_and_download.pl
+install -m 755 /usr/local/rwhoisd-1.5.9.5/scripts/create_archive.sh               %{buildroot}/usr/local/rwhoisd2/scripts/create_archive.sh
+# in builddir
+cp -a * %{buildroot}
+%clean
+rm -rf %{buildroot}
+cp -a * %{buildroot}
+%clean
+rm -rf %{buildroot}
+%files
+%dir /usr/local/rwhoisd2
+%defattr(-,rwhois,rwhois,-)
+/etc/init.d/rwhois
+/usr/local/rwhoisd2/etc
+/usr/local/rwhoisd2/bin
+/usr/local/rwhoisd2/sbin
+/usr/local/rwhoisd2/var/log
+/usr/local/rwhoisd2/var/run
+/usr/local/rwhoisd2/backups
+/usr/local/rwhoisd2/incoming
+/usr/local/rwhoisd2/data
+/usr/local/rwhoisd2/scripts
+/usr/local/rwhoisd2/tmp
+%changelog
+*Mon Mar 10 2014  Talha Jilal <talha.jilal@abc.com> 1.0-1
+- First Build
+EOF
+</pre>                                          
+
+Rwhois-1.5.5-1 installation Process from rpm On Linux
+
+1-	System Configuration 
+Selinux = enforcing 
+I check rwhois is working fine with enforcing mode without making any changes in selinux. 
+2-	IP Tables 
+Make sure iptables start at start up
+#chkconfig  iptables on
+Ports allowed 22 tcp for ssh on private interface
+4321 tcp allowed private+public
+#iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 4321 -j ACCEPT
+#iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+ #/etc/init.d/iptables save 
+ #/etc/init.d/iptables restart
+	Installing RPM Package On Linux Machine
+
+1-	RWHOIS RPM Structure 
+   Rwhois rpm package contain the following directories  
+   backups  bin  data  etc  incoming  sbin  scripts  tmp  var
+2-	Adding rwhois User and group I did not include rwhois user add script in rpm.
+#useradd –g rwhois  -d /usr/local/rwhoisd  -u 505 rwhois
+3-	rwhois installation process 
+   Copy a rpm package on local drive
+   /usr/src/rwhoisd-1.5.9.5-1.x86_64.rpm
+4-	Run rpm command 
+#rpm  -ivh /usr/src/rwhoisd-1.5.9.5-1.x86_64.rpm
+5-	Package will installed under the following directory
+/usr/local/rwhoisd	
+Start-up script will copied under 
+/etc/init.d/rwhois 
+6-	Start rwhois service
+#/etc/init.d/rwhois start
+7-	Make sure rwhois service starts at startup
+#chkconfig rwhois on
+I copied all configuration files from existing production server, and build a rpm package. It should work without any issue. 
+8-	Ruming update perl script
+#perl    import_latest_archive.pl
+This script will pull some ip records and text files from IPAM and copy under the data directory and build a who is data structure. 
+
+How to verify rwhois server is installed and working perfect, resolving	 queries. 
+
+  	 #telnet localhost 4321 
+(best way to verify go to /usr/local/rwhoisd2/data/ and run “ls –lrt” copy ip address and past after telnet exc) 
+
+
+<pre>
+# telnet rwhois.abc.net 4321
+Trying 198.161.156.19...
+Connected to rwhois.abc.net (198.161.156.19).
+Escape character is '^]'.
+%rwhois V-1.5:001ab7:00 rwhois.abc.net (by Network Solutions, Inc. V-1.5.9.5)
+204.174.118.0
+network:Class-Name:network
+network:ID:100123577937235560.204.174.118.0/24
+network:Auth-Area:204.174.118.0/24
+network:Network-Name:Babinszki Consulting Services
+network:IP-Network:204.174.118.0/24
+network:Org-Name:Babinszki Consulting Services
+network:Street-Address:3777 Kingsway 7-T2
+network:City:Burnaby
+network:State-Province:British Columbia
+network:Country-Code:CA
+network:Postal-Code:V5H-3Z7
+network:Admin-Contact:hostmaster@abc.com
+network:Abuse-Contact:abuse@abc.com (1-604-444-5791)
+network:Tech-Contact:ipadmin@abc.com
+network:Created:2005-03-30 (12:00:00)
+network:Updated:2010-12-15 (12:00:00)
+%ok
+</pre>
+
+
+== Another example of RPM Build ==
+<pre>
+Require packages 
+yum groupinstall "Development tools"  
+yum install rpmdevtools
+
+
+Directory structure. 
+
+ls -lrt /root/rpmbuild/
+total 0
+drwxr-xr-x 4 root root  34 Nov 22 12:09 RPMS
+drwxr-xr-x 2 root root 190 Nov 23 10:59 SOURCES
+drwxr-xr-x 2 root root 204 Nov 23 12:23 SPECS
+drwxr-xr-x 9 root root 165 Nov 23 12:24 BUILD
+drwxr-xr-x 2 root root 143 Nov 23 12:24 SRPMS
+drwxr-xr-x 2 root root   6 Nov 23 12:24 BUILDROOT
+
+</pre>
+<pre>
+cat atp-validation-0.2.spec
+Summary: This script for Redhat 6 & 7 Acceptance test Procedure validaiton.
+Name: atp-validation
+Version: 0.2
+Release: 2
+URL:     http://www.zaftech.ca
+License: GPL
+Group: IP Network Core Engineering Team
+BuildRoot: %{_tmppath}/%{name}-root
+Requires: bash
+Source0: atp-validation-%{version}.tar.gz
+BuildArch: noarch
+
+%description
+ATP Script.
+
+%prep
+%setup
+%build
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+mkdir -p ${RPM_BUILD_ROOT}/usr/bin
+mkdir -p ${RPM_BUILD_ROOT}/etc/sudoers.d
+install -m 755 atp-validation ${RPM_BUILD_ROOT}%{_bindir}
+install -m 755 atp-validation.sh ${RPM_BUILD_ROOT}%{_bindir}
+#install -m 0644 atp-sudoers $RPM_BUILD_ROOT/etc/suders.d/
+install -m 400 atp-sudoers ${RPM_BUILD_ROOT}%{_sysconfdir}/sudoers.d/
+
+# Reference include atp suders file to /etc/suders.d/atp
+
+%clean
+rm -rf ${RPM_BUILD_ROOT}
+#userdel --force atp 2> /dev/null; true
+
+# %pre before installation of rpm package
+%pre
+getent passwd atp > /dev/null 2&>1
+if [ $? -eq 0 ]; then
+echo "atp user exist"
+else
+adduser atp
+fi
+
+
+# %postun when rpm will uninstall
+%postun
+
+# Removing Suders file
+#rm -rf /etc/sudoers.d/atp
+getent passwd atp > /dev/null 2&>1
+if [ $? -eq 0 ]; then
+userdel --force atp 2> /dev/null; true
+else
+echo "no user to delete"
+fi
+
+
+%files
+%defattr(-,root,root)
+%attr(755,atp,root) %{_bindir}/atp-validation
+%attr(755,atp,root) %{_bindir}/atp-validation.sh
+/etc/sudoers.d/atp-sudoers
+%post
+%changelog
+* Wed Nov 22 2017 Talha Jilal <talhajilal@gmail.com>
+- Uberscript!
+
+
+
+
+</pre>
+
+=How to setup apache http authentication=
+
+<pre>
+</VirtualHost>
+<Location /wiki>
+ AuthType Basic
+AuthName "Wiki"
+AuthUserFile /var/www/html/wiki/auth
+#AuthUserFile /var/www/html/wiki/
+Require valid-user
+</Location>
+</pre>
+
+<pre>
+Add user tjilal 
+htpasswd -cm /var/www/html/wiki/auth tjilal
+entering password
+</pre>
+== About Zaftech ==
+Future of AI....
+
+== Getting started ==
+* [//www.mediawiki.org/wiki/Manual:Configuration_settings Configuration settings list]
+* [//www.mediawiki.org/wiki/Manual:FAQ MediaWiki FAQ]
+* [https://lists.wikimedia.org/mailman/listinfo/mediawiki-announce MediaWiki release mailing list]
+* [//www.mediawiki.org/wiki/Localisation#Translation_resources Localise MediaWiki for your language]
+
+
+=Shell Scripting=
+
+=Power on and SSH to a Linux VM from SSH=
+
+1. Use grep to find the ID of your VM (1008 in this example)
+<pre>
+~ #  vmsvc/getallvms | grep -i CENTOS1
+1008   CENTOS1      [CX4-01-LUN9] CENTOS1/CENTOS1.vmx         centos64Guest
+</pre>
+
+
+2. Quick sanity check to verify the VM is actually powered off:
+
+<pre>
+~ # vim-cmd vmsvc/get.summary 1008 | egrep '(power|ip)'
+      powerState = "poweredOff",
+      ipAddress = ,
+</pre>
+
+3. Power on, wait a few moments, and check status again:
+
+<pre>
+~ # vim-cmd vmsvc/power.on 1008
+Powering on VM:
+~ # vim-cmd vmsvc/get.summary 1008 | egrep '(power|ip)'
+      powerState = "poweredOn",
+      ipAddress = "10.136.234.38",
+~ #
+</pre>
+
+
+4.  Connect with ssh (or RDP, if targeting a Windows VM) and get on with things
+
+=Power on and SSH to a Linux VM from SSH=
+
+1. Use grep to find the ID of your VM (1008 in this example)
+<pre>
+~ #  vmsvc/getallvms | grep -i CENTOS1
+1008   CENTOS1      [CX4-01-LUN9] CENTOS1/CENTOS1.vmx         centos64Guest
+</pre>
+
+
+2. Quick sanity check to verify the VM is actually powered off:
+
+<pre>
+~ # vim-cmd vmsvc/get.summary 1008 | egrep '(power|ip)'
+      powerState = "poweredOff",
+      ipAddress = ,
+</pre>
+
+3. Power on, wait a few moments, and check status again:
+
+<pre>
+~ # vim-cmd vmsvc/power.on 1008
+Powering on VM:
+~ # vim-cmd vmsvc/get.summary 1008 | egrep '(power|ip)'
+      powerState = "poweredOn",
+      ipAddress = "10.136.234.38",
+~ #
+</pre>
+
+
+4.  Connect with ssh (or RDP, if targeting a Windows VM) and get on with things
+
+
+==Live Streaming==
+
+create index.html in your web directory copy past html code 
+
+html file directory should also have this file (player.swf)
+
+Replace rtmp link with your rtmp link
+
+
+<pre>
+<script type='text/javascript' src='swfobject.js'></script>
+
+<div id='mediaspace'>This text will be replaced</div>
+
+<script type='text/javascript'>
+  var so = new SWFObject('player.swf','ply','470','320','9','#000000');
+  so.addParam('allowfullscreen','true');
+  so.addParam('allowscriptaccess','always');
+  so.addVariable('autostart','true');
+  so.addParam('wmode','opaque');
+  so.addVariable('file','Urdu300k.stream');
+ so.addVariable('streamer','rtmp://mtaintl.mpl.miisolutions.net/mtaintl-live-1/_definst_/Urdu300k.stream');
+ //so.addVariable('streamer','rtmp://mtaintl.mpl.miisolutions.net/mtaintl-live-1/_definst_/Urdu300k.stream');  
+so.write('mediaspace');
+</script>
+</pre>
+
+
+=Dynamic MOTD script=
+<pre>
+echo "#/bin/bash" > /etc/profile.d/motd.sh
+echo "hostname=\$(hostname)" >> /etc/profile.d/motd.sh
+echo "date=\$(date)" >> /etc/profile.d/motd.sh
+echo "echo \$hostname" >> /etc/profile.d/motd.sh
+echo "echo \"" >> /etc/profile.d/motd.sh
+echo " ###################################### "  >> /etc/profile.d/motd.sh
+echo "# You loged in \$hostname        #"  >> /etc/profile.d/motd.sh
+echo "# This is RTR    PROD ENV            #"  >> /etc/profile.d/motd.sh
+echo "# Please CONTACT DL-TSO Service ENB  #"  >> /etc/profile.d/motd.sh
+echo "#  date \$date #"  >> /etc/profile.d/motd.sh
+echo ""###################################### \"" > test.txt " >> /etc/profile.d/motd.sh
+echo "cat test.txt" >> /etc/profile.d/motd.sh
+
+chmod +x /etc/profile.d/motd.sh
+echo "" > /etc/motd
+</pre>
+
+=A good IPtables Example=
+
+FOllowing Iptables block all traffic, so make sure the ports that you want to enable for incoming and as outgoing traffic should be open.
+
+<pre>
+
+#Drop all Traffic
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+#SSH port allowed only to internal interface
+-A INPUT -i eth0 -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+-A INPUT -i eth0 -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+-A INPUT -i eth0 -d 172.18.190.0/24 -j ACCEPT
+###DNS AND NTP####
+-A OUTPUT -o eth0 -p udp -m udp --dport 53 -j ACCEPT
+-A OUTPUT -o eth1 -p udp -m udp --dport 53 -j ACCEPT
+-A OUTPUT -o eth0 -p tcp -m tcp --dport 53 -j ACCEPT
+-A OUTPUT -o eth1 -p tcp -m tcp --dport 53 -j ACCEPT
+-A OUTPUT -o eth0 -p udp -m udp --dport 123 -j ACCEPT
+-A OUTPUT -o eth0 -p tcp -m tcp --dport 123 -j ACCEPT
+#Out going application connections on public interface
+-A OUTPUT -o eth0 -p tcp -m tcp -m multiport --dports 8080,80,443 -j ACCEPT
+-A OUTPUT -o eth0 -p tcp -m tcp -m multiport --sports 8080,80,443 -j ACCEPT
+#Outgoing application connections on private interface
+-A OUTPUT -o eth0 -p tcp -m tcp -m multiport --dports 80,443,22 -j ACCEPT
+-A OUTPUT -o eth0 -p tcp -m tcp -m multiport --sports 22,80,443 -j ACCEPT
+COMMIT
+
+
+</pre>
+
+=puppet installation and configuration= 
+<pre>
+1- install puppet master ( node1 )   
+2- install puppet client  ( web-wiki)
+3- Edit Hosts file, on both nodes 
+4- take backup for cp /etc/puppet/puppet.conf /etc/puppet/puppet.conf.orig
+
+</pre>
+
+<pre>
+puppet masters hosts file ( Node1)
+vi /etc/hosts
+127.0.1.1       localhost       localhost.localdomain localhost4 localhost4.localdomain4
+::1     localhost       localhost.localdomain localhost6 localhost6.localdomain6
+192.168.2.107   node1.local node1.home  node1 puppet
+192.168.2.111   jilal.com       node2.home zaftech.dyndns.org
+192.168.2.108 web-wiki web-wiki.local
+
+
+</pre>
+
+<pre>
+web-wiki ( puppet client) hosts file
+vi /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.2.108 web-wiki
+192.168.2.107 node1 node1.local  puppet node1.home
+</pre>
+
+
+
+
+<pre>
+Puppet master puppet.conf config 
+
+### Start from Here
+[main]
+logdir=/var/log/puppet
+vardir=/var/lib/puppet
+ssldir=/var/lib/puppet/ssl
+rundir=/var/run/puppet
+factpath=$vardir/lib/facter
+templatedir=$confdir/templates
+
+[master]
+# These are needed when the puppetmaster is run by passenger
+# and can safely be removed if webrick is used.
+ssl_client_header = SSL_CLIENT_S_DN
+ssl_client_verify_header = SSL_CLIENT_VERIFY
+
+certname = puppet
+dns_alt_names = puppet,node1.home
+### Ends Here ###
+</pre>
+
+
+Puppet Client puppet.conf config file
+
+
+<pre>
+vi /etc/puppet/puppet.conf
+
+## Starts from Here ## 
+
+[main]
+    # The Puppet log directory.
+    # The default value is '$vardir/log'.
+    logdir = /var/log/puppet
+
+    # Where Puppet PID files are kept.
+    # The default value is '$vardir/run'.
+    rundir = /var/run/puppet
+
+    # Where SSL certificates are kept.
+    # The default value is '$confdir/ssl'.
+    ssldir = $vardir/ssl
+
+[agent]
+    # The file in which puppetd stores a list of the classes
+    # associated with the retrieved configuratiion.  Can be loaded in
+    # the separate ``puppet`` executable using the ``--loadclasses``
+    # option.
+    # The default value is '$confdir/classes.txt'.
+    classfile = $vardir/classes.txt
+
+    # Where puppetd caches the local configuration.  An
+    # extension indicating the cache format is added automatically.
+    # The default value is '$confdir/localconfig'.
+    localconfig = $vardir/localconfig
+#    server = node1.home
+     server = puppet
+#[master]
+#certname=node1.local
+
+## Ends Here ### 
+
+</pre>
+
+
+Puppet master commands for clearing certificate and listing certificate.
+<pre> 
+
+On Puppetmaster , to list all signed puppet certificates 
+
+puppet cert --list --all
+
+Run from puppet master , clearing certificate  for a specific hosts
+
+puppet cert clean web-wiki
+
+</pre>
+
+Puppet Client Command for Clearing old certificate  and signing new certificate
+
+<pre>
+
+Clear certificate directory 
+rm -rf /var/lib/puppet/ssl
+
+request for new certificate
+
+puppet agent --server puppet --waitforcert 15 --test
+
+Note make sure server name should be correspond with puppet.conf server = puppet and ping able and port 8140 should be open
+
+</pre>
+
+Puppet client update after changes 
+
+<pre>
+
+puppet agent -t
+</pre>
+
+Create a simple file and test if puppet configured properly on master and client.
+
+<pre>
+
+
+vi /etc/puppet/manifests/site.pp
+
+file {'/tmp/example-ip':                                            # resource type file and filename
+  ensure  => present,                                               # make sure it exists
+  mode    => 0644,                                                  # file permissions
+  content => "Private Address: ${ipaddress_eth0}.\n",  # note the ipaddress_eth0 fact
+}
+
+</pre>
+
+ 
+
+Run the following command from individual client servers to update configurations
+
+
+<pre>
+
+puppet agent -t 
+
+verify cat /tmp/example-ip
+
+</pre>
+== Puppet Some Exploratory  Manifest files==
+<pre>
+cd /etc/puppet/manifest 
+</pre>
+<pre> 
+cat hosts.pp
+
+</pre>
+
+=How to Create new puppet manifest file from existing configuration==
+    puppet resource hosts list
+    puppet resource list all
+    puppet resource list
+    puppet resource
+    puppet resource packages
+    puppet resource packages httpd
+    puppet resource package httpd
+   puppet module create talha-apache
+
+=How does puppet work with Version Control i.e SVN or Github=
+<pre>
+Let's use SVN an example. 
+1- Create nodes roles and group 
+2- Controlling sudoer file with puppet
+3- Controlling SSD file with svn
+</pre>
+==Some manifest files examples== 
+
+<pre>
+site.pp file contain information about nodes a
+cat site.pp
+</pre>
+
+<pre>
+import 'hosts.pp'
+import 'man.pp'
+import 'http.pp'
+import 'ntp.pp'
+node 'web-01' {
+include helloworld
+include etc_hosts
+include man
+include httpd
+include ntpd
+}
+
+class helloworld {
+
+    file { '/etc/motd':
+    owner  => 'root',
+    group  => 'root',
+    mode    => '0644',
+    content => "You are Entering In HELL Becarefull , I love Hackers if they can hack my system but make sure you have no foot prints left!\n",
+    }
+
+ }
+
+node 'web-02' {
+include helloworld
+include man
+include etc_hosts
+include httpd
+include ntpd
+}
+</pre>
+
+<pre>
+cat hosts.pp 
+class etc_hosts {
+host { 'localhost':
+  ensure       => 'present',
+  host_aliases => ['localhost.localdomain', 'localhost4', 'localhost4.localdomain4'],
+  ip           => '127.0.0.1',
+  target       => '/etc/hosts',
+}
+host { 'puppetserver':
+  ensure       => 'present',
+  host_aliases => ['puppetserver.home', 'puppetmaster.home', 'puppet-master', 'puppetserver.local'],
+  ip           => '192.168.2.32',
+  target       => '/etc/hosts',
+}
+host { 'web-01':
+  ensure       => 'present',
+  host_aliases => ['web-01.home', 'web-01.local'],
+  ip           => '192.168.2.30',
+  target       => '/etc/hosts',
+}
+host { 'web-02':
+  ensure       => 'present',
+  host_aliases => ['web-02.home', 'web-02.local'],
+  ip           => '192.168.2.31',
+  target       => '/etc/hosts',
+}
+host { 'web-03':
+  ensure       => 'present',
+  host_aliases => ['web-02.home', 'web-02.local'],
+  ip           => '192.168.2.33',
+  target       => '/etc/hosts',
+}
+
+
+package { 'openssh-server':
+  ensure => '5.3p1-118.1.el6_8',
+}
+file { "test_file":
+  ensure  => "file",
+  path => "/tmp/test.file",
+  ##mode => 755,
+  source => "puppet:///files/test.file"
+}
+file { "sshd_config":
+  ensure  => "file",
+  group   => "0",
+  mode    => "644",
+  owner   => "root",
+  #type    => "file",
+  path    => "/etc/ssh/sshd_config",
+  source  => "puppet:///files/sshd_config"
+}
+
+}
+
+</pre>
+
+=Shell Script DCCP vulnerability  Patching work around  =
+<pre>
+#/bin/bash
+time=$(date +%d%m%y-%H-%M-%S)
+dir=/opt/sysadmin-scripts
+home_dir=$dir/dccp
+hosts=$home_dir/hosts_list
+dir_log_file=$home_dir/log_file.txt
+echo "Old log file removed"
+rm -rf $dir_log_file.gz
+gzip $dir_log_file
+echo "Enter your AD login"
+read user
+
+echo "Please Enter your AD Password"
+read -s password
+echo "Start Time $time " > $dir_log_file
+
+for i in `cat $hosts`;do echo $i  ; sshpass -p $password ssh  -o StrictHostKeyChecking=no  talha_jilal@$i '
+/bin/cat  /etc/modprobe.d/dccp.conf| grep  "install dccp" | grep false
+b=$(echo $?)
+if [ $b -eq 0 ]
+then
+    echo  "Dccp is disabled nothing to do"
+else
+    echo "Is not Diabled #Action Required /etc/modprod.d/dccp.conf "
+fi
+';done >> $dir_log_file
+echo "#######################################################
+echo "#######################################################
+echo "#######################################################
+echo "#######################################################
+
+echo "Script Complete Please check $dir_log_file for results"
+</pre>
+
+=Spacewalk Learning Notes= 
+== Spacewalk Documents == 
+Spacewalk as Patch Management Solution For Red hat
+
+
+<pre>
+Installation Location: Unknown  
+Host IP Address: 
+Example Client: 
+Login Link:  https:/
+User Name: admin 
+Password:  ******
+1-	Intro 
+2-	How to create activation key
+3-	How to sync repo on spacewalk 
+4-	How to register client system with spacewalk 
+5-	What is errata 
+6-	How does erratum work in spacewalk? 
+7-	How does spacewalk help to find security updates and patches? 
+1-	Intro
+It is the upstream community project for Red Hat Satellite. Its capabilities include:
+ 
+a-	Inventory your systems (hardware and software information)
+b-	Install and update software on your systems
+c-	Collect and distribute your custom software packages into manageable groups
+d-	Provision (kickstart) your systems
+e-	Manage and deploy configuration files to your systems
+f-	Provision virtual guests
+g-	Start/stop/configure virtual guests
+h-	Distribute content across multiple geographical sites in an efficient manner
+Purpose of this documents to understand how can we use spacewalk for patch management and bug fixes. To use spacewalk for patch management and bug fixes we must have the following components configured. 
+
+I)	Spacewalk Web UI 
+II)	Channels 
+III)	Repos
+IV)	Channels and Repos Synchronization 
+V)	Errata channels 
+
+2-	 How to create activation key
+a)	Systems  Activation Keys 
+b)	On Top, right corner Create Key
+c)	Provide information in description and provide complex key words
+
+
+ 
+3-	How to Create new channel and Sync repo on Spacewalk 
+a-	Create new Repo 
+b-	Create new software Channel and associate repo 
+c-	Sync external / internal (Yum repo) with newly Created channel
+
+a-	Create new repo 
+Click on Channels   Manage Repositories    Click on Crate Repository 
+
+
+
+
+
+Fill required Information as follow.
+
+
+a.	Create new channel 
+Click on Channels   Manage Software Channels  (To right) Create Software channel  
+
+
+ 
+Click on Create Software Channel 
+
+
+
+Sync external / internal (Yum repo) with newly Created channel
+Now we need to sync repo (Yum repo ) with new created channel on spacewalk.
+a-	Login to spacewalk server ( SSH ) 
+b-	Run the spacewalk-reo-sync command 
+spacewalk-repo-sync -c oracle-linux -u http://yum.oracle.com/repo/OracleLinux/OL6/latest/x86_64/
+ 
+
+4-	How to register client system with Spacewalk
+a)	Login to spacewalk web portal 
+b)	Go to systems   Activation key   Key ( Copy the key value) 
+
+
+
+
+
+c)	Login to spacewalk Client 
+d)	Install spacewalk client dependencies 
+#yum install openssh-clients -utils scl-utils scl-utils-build wget  bind-utils  rhn-client-tools  rhn-check rhn-setup rhnsd m2crypto yum-rhn-plugin
+e)	And run the following command
+rhnreg_ks --serverUrl=http://spacewalk-hostname/XMLRPC --activationkey=activation_key  
+f)	After registration, we can list newly added host in spacewalk UI. 
+Click on System  Systems  All  ( Please see picture below you can see a newly added host listed with spec )
+
+ 
+5-	What is errata  
+Errata is bug fixes and security patches released for Linux operating systems. 
+6-	How does erratum work in spacewalk? 
+
+	How to create errata channels in spacewalk 
+a)	Login to Spacewalk ssh console, 
+b)	A Perl script for spacewalk errata synchronizing /opt/centos-errata/
+c)	Download Errata file and save in newly created directory
+d)	Set console variable 
+export SPACEWALK_USER='admin'
+export SPACEWALK_PASS=’spacewalk-web-admin-ui-password’
+
+e)	And following errata errata-import.pl with screen. And sit back 
+perl errata-import.pl --server localhost --errata errata.latest.xml
+
+errata-import.pl script will scan all channels created on spacewalk and found bugs cve csves and updates and recommended upgrades
+
+f)	After completion of script, go back to spacewalk web UI. 
+Click on Errata   Manage Errata (New available bugs and security patches available now) 
+
+
+
+
+
+7-	How does spacewalk help to find security updates and patches? 
+When a system registered with spacewalk, spacewalk obtain installed software information and compare with existing yum repo and configured erratum channels. 
+If we run “spacewalk-channel -l “command we can see listed and enrolled channel
+  
+Login to spacewalk UI –
+Click – Systems  Overview  Click on System (Host Name) 
+ 
+
+We can see software available Critical, Non-Critical and Packages
+ 
+
+This report above shows up what we have available for updates, 
+Now move to next step how can we select updates and push to system or group of systems.
+Let’s select critical updates, 
+ 
+Click on critical (54) 
+We can select all or we can make our own selection of bugs with number  
+
+
+
+
+
+
+ select decided to update or push to a system or group of systems.
+ 
+
+
+Click Apply Errata and move to next screen 
+Available options – (a) Select time schedule (b) Action Chain 
+ 
+And confirm. 
+
+</pre>
+
+==Errata Bug fixes and patches for linux == 
+
+
+<pre>
+Some Rough Notes For spacewalk Errata
+For more details click on this , 
+follow instruction. 4
+http://defs.steve-meier.de/
+
+#Command 
+perl errata-import.pl  --server localhost --errata latest.xml  --publish
+################################## 
+NOTICE: Skipping errata DSA-3809 (mariadb-10.0 -- security update) -- No packages found
+INFO: Errata created: 0
+INFO: Errata have been created but NOT published!
+INFO: Please go to: Errata -> Manage Errata -> Unpublished to find them
+INFO: If you want to publish them please delete the unpublished Errata and run this script again
+INFO: with the --publish parameter
+
+#############################################################################
+
+2-Command 
+# perl errata-import.pl  --server localhost --errata latest.xml  --publish 
+
+
+############################################
+
+For centos 6 
+https://cefs.steve-meier.de/
+
+
+http://www.devops-blog.net/spacewalk/registering-ubuntu-and-debian-servers-with-spacewalk
+
+Research in Progress 
+
+</pre>
+
+
+
+== GPG KEY Setting for Channels Some Important notes == 
+
+<pre>
+
+How to disable gpg key temparay on client side
+
+Login to Client ssh : 
+
+vi /etc/yum/pluginconf.d/rhnplugin.conf
+gpgcheck = 0 
+
+
+
+
+How to obtain gpg key , 
+how to obtain gpg key id. 
+wget http://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6
+	gpg --with-fingerprint  RPM-GPG-KEY-oracle-ol6
+
+______________________________________________________________________________
+
+pub  2048R/EC551F03 2010-07-01 Oracle OSS group (Open Source Software group) <build@oss.oracle.com>
+      Key fingerprint = 4214 4123 FECF C55B 9086  313D 72F9 7B74 EC55 1F03
+
+== For spacewalk == 
+Security GPG : 
+GPG URL : http://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6
+GPG Key ID : EC551F03   ( Last 8 digits ) 
+GPG Key Finger Prints : 4214 4123 FECF C55B 9086  313D 72F9 7B74 EC55 1F03
+_______________________________________________________________________________
+
+
+
+</pre>
+
+
+
+==How to unregister client with spacewalk ==
+<pre>
+1- remove following file from spacewalk client , 
+login ssh : spacewalk client 
+rm -rf /etc/sysconfig/rhn/systemid
+2- Login to spacewalk 
+System ==> Systems ==> Select System ==> and delete from UI ( Most of the time it disappeared itself ) 
+
+</pre>
+
+=Docker Learning Notes=
+==How to install docker on Centos 6 ( Redhat Linux 6)==
+<pre>
+
+
+yum -y install docker-io
+
+start docker service 
+
+service docker start
+
+chkconfig  docker on
+
+
+</pre>
+
+== How to install a test image on docker==
+
+<pre>
+
+1- go to google  , 
+2- Seach for docker hub 
+3- Brows image you want to install
+
+
+https://hub.docker.com/r/library/mysql/tags/
+
+</pre>
+
+
+<pre>
+Run a first docker image, 
+
+docker  run busybox:1.24 echo " Helo World"
+
+Some useful command
+
+docker search nginx ( i.e) 
+docker run busybox:1.24 ls /bin
+</pre>
+
+== Host to run docker container in background == 
+<pre>
+docker  run -i -t busybox:1.24
+</pre>
+
+==Runing Container in detached mode==
+
+<pre>
+
+[root@puppet ~]# docker  run -d busybox:1.24  sleep 25
+e36a1334c3cb91baf25abab0a925efd6a6ed3a5988be5df2e12ea6ad3a2b7b10
+[root@puppet ~]# docker  ps -a
+</pre>
+
+==Docker Ps command==
+
+<pre>
+
+[root@puppet ~]# docker  run -d busybox:1.24  sleep 25
+e36a1334c3cb91baf25abab0a925efd6a6ed3a5988be5df2e12ea6ad3a2b7b10
+
+# ps -a give you previously running commands 
+[root@puppet ~]# docker  ps -a
+CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS                      PORTS               NAMES
+e36a1334c3cb        busybox:1.24        "sleep 25"             11 seconds ago      Up 10 seconds                                   hungry_wilson
+d1b4e686544a        busybox:1.24        "sleep 25"             45 seconds ago      Exited (0) 19 seconds ago                       sad_poincare
+198c356e68ff        busybox:1.24        "sh"                   4 minutes ago       Exited (0) 3 minutes ago                        backstabbing_leakey
+985ad61102fa        busybox:1.24        "cat /etc/httpd/conf   2 hours ago         Exited (1) 2 hours ago                          distracted_hodgkin
+09722f7ec18f        busybox:1.24        "cat /etc/httpd/conf   2 hours ago         Exited (1) 2 hours ago                          suspicious_davinci
+96182c39d626        busybox:1.24        "cat /etc/resolv.con   2 hours ago         Exited (0) 2 hours ago                          fervent_newton
+ef21943b61d5        busybox:1.24        "cat /etc/hosts"       2 hours ago         Exited (0) 2 hours ago                          backstabbing_feynman
+bb8473831503        busybox:1.24        "ls -lrt /home/"       3 hours ago         Exited (0) 3 hours ago                          jovial_lumiere
+7a1f6617ddcf        busybox:1.24        "ls -lrt /home/"       19 hours ago        Exited (0) 19 hours ago                         agitated_ritchie
+d4b2f1599662        busybox:1.24        "ls -lrt /bin/"        19 hours ago        Exited (0) 19 hours ago                         kickass_darwin
+20c73632bb2d        busybox:1.24        "echo ' Helo World'"   19 hours ago        Exited (0) 19 hours ago                         silly_euclid
+fea011ca6791        busybox:1.24        "ls /home/"            20 hours ago        Exited (0) 20 hours ago                         kickass_jones
+4853ae1f5178        busybox:1.24        "ls /"                 20 hours ago        Exited (0) 20 hours ago                         agitated_engelbart
+dc6359480556        busybox:1.24        "echo 'Hello World'"   20 hours ago        Exited (0) 20 hours ago                         cranky_fermi
+7c6ddadb4f32        busybox:1.24        "localy"               20 hours ago                                                        modest_jones
+[root@puppet ~]# docker  ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+e36a1334c3cb        busybox:1.24        "sleep 25"          13 seconds ago      Up 12 seconds                           hungry_wilson
+</pre>
+
+==Remove container==
+
+
+<pre>
+
+docker  run --rm busybox:1.24
+
+</pre>
+
+==How to run a docker with customise name==
+
+<pre>
+
+
+docker  run --name helo-worl busybox:1.24
+
+# If we list running dockers you can see NAME on right coloum.
+
+docker  ps -a
+CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS                     PORTS               NAMES
+00e7eec980f4        busybox:1.24        "sh"                   7 seconds ago       Exited (0) 5 seconds ago                       helo-worl
+e36a1334c3cb        busybox:1.24        "sleep 25"             2 hours ago         Exited (0) 2 hours ago                         hungry_wilson
+d1b4e686544a        busybox:1.24        "sleep 25"             2 hours ago         Exited (0) 2 hours ago                         sad_poincare
+198c356e68ff        busybox:1.24        "sh"                   3 hours ago         Exited (0) 3 hours ago                         backstabbing_leakey
+985ad61102fa        busybox:1.24        "cat /etc/httpd/conf   5 hours ago         Exited (1) 5 hours ago                         distracted_hodgkin
+09722f7ec18f        busybox:1.24        "cat /etc/httpd/conf   5 hours ago         Exited (1) 5 hours ago                         suspicious_davinci
+96182c39d626        busybox:1.24        "cat /etc/resolv.con   5 hours ago         Exited (0) 5 hours ago                         fervent_newton
+ef21943b61d5        busybox:1.24        "cat /etc/hosts"       5 hours ago         Exited (0) 5 hours ago                         backstabbing_feynman
+bb8473831503        busybox:1.24        "ls -lrt /home/"       5 hours ago         Exited (0) 5 hours ago                         jovial_lumiere
+7a1f6617ddcf        busybox:1.24        "ls -lrt /home/"       22 hours ago        Exited (0) 22 hours ago                        agitated_ritchie
+d4b2f1599662        busybox:1.24        "ls -lrt /bin/"        22 hours ago        Exited (0) 22 hours ago                        kickass_darwin
+20c73632bb2d        busybox:1.24        "echo ' Helo World'"   22 hours ago        Exited (0) 22 hours ago                        silly_euclid
+fea011ca6791        busybox:1.24        "ls /home/"            22 hours ago        Exited (0) 22 hours ago                        kickass_jones
+4853ae1f5178        busybox:1.24        "ls /"                 22 hours ago        Exited (0) 22 hours ago                        agitated_engelbart
+dc6359480556        busybox:1.24        "echo 'Hello World'"   22 hours ago        Exited (0) 22 hours ago                        cranky_fermi
+7c6ddadb4f32        busybox:1.24        "localy"               22 hours ago                                                       modest_jones
+
+
+</pre>
+
+==How to inspect Docker==
+<pre>
+1- Create a  new docker 
+
+#docker  run -d busybox:1.24 sleep 100
+5dbe6bf3cc71e07fa976febe86cffe69cfa0358d9223ebd4616aeb20a1619ecf
+
+2- Copy output and 
+
+#docker  inspect 5dbe6bf3cc71e07fa976febe86cffe69cfa0358d9223ebd4616aeb20a1619ecf
+
+
+output ...
+
+
+    "Id": "5dbe6bf3cc71e07fa976febe86cffe69cfa0358d9223ebd4616aeb20a1619ecf",
+    "Created": "2017-05-30T20:06:36.171202485Z",
+    "Path": "sleep",
+    "Args": [
+        "100"
+    ],
+    "State": {
+        "Running": true,
+        "Paused": false,
+        "Restarting": false,
+        "OOMKilled": false,
+        "Dead": false,
+        "Pid": 28239,
+        "ExitCode": 0,
+        "Error": "",
+        "StartedAt": "2017-05-30T20:06:36.832187526Z",
+        "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "437595becdebaaaf3a4fc3db02c59a980f955dee825c153308c670610bb694e1",
+    "NetworkSettings": {
+        "Bridge": "",
+        "EndpointID": "3a7814afd33a9f476c4f99d6d47903fd388e6253305d707f84bc0981874fdd26",
+        "Gateway": "172.17.42.1",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "HairpinMode": false,
+        "IPAddress": "172.17.0.22",
+        "IPPrefixLen": 16,
+        "IPv6Gateway": "",
+        "LinkLocalIPv6Address": "",
+        "LinkLocalIPv6PrefixLen": 0,
+        "MacAddress": "02:42:ac:11:00:16",
+        "NetworkID": "172812c19bda789775e3b2d0106384c4256fdd40524424412b0b64b8e9703000",
+        "PortMapping": null,
+        "Ports": {},
+        "SandboxKey": "/var/run/docker/netns/5dbe6bf3cc71",
+        "SecondaryIPAddresses": null,
+        "SecondaryIPv6Addresses": null
+</pre>
+
+==Docker Tomcat as an example==
+
+<pre>
+1- Go to docker hub website 
+2- go to linux console
+3- run docker command with plugins 
+#docker run -it -p 8888:8080 tomcat:8.0 
+
+Docker is command 
+run -it " is an action"
+-p for port 
+8888 is source port open for public 
+8080 is tomcat port running under tomcat 
+tomcat container name
+8.0 is version we found in docker hub website
+4- Run ps command to verify status
+#docker ps -a 
+
+
+5- How to run docker in backend ? 
+
+
+#docker run -it -p  8888:8080 -d tomcat:8.0 
+
+Now docker is running in back ground with tomcat.
+We can go to browser an  type ipaddress of machine that running docker with port number 8888
+
+</pre>
+
+<pre>
+
+6- See docker log 
+a) docker ps -a 
+
+
+#docker ps -a
+CONTAINER ID        IMAGE               COMMAND                CREATED              STATUS                        PORTS                    NAMES
+d9680350e13a        tomcat:8.0          "catalina.sh run"      About a minute ago   Up About a minute             0.0.0.0:8888->8080/tcp   naughty_feynman   
+e209eec13067        tomcat:8.0          "catalina.sh run"      18 minutes ago       Exited (130) 12 minutes ago                            sharp_bartik      
+5dbe6bf3cc71        busybox:1.24        "sleep 100"            19 hours ago         Exited (0) 19 hours ago                                cocky_swartz      
+00e7eec980f4        busybox:1.24        "sh"                   19 hours ago         Exited (0) 19 hours ago                                helo-worl         
+e36a1334c3cb        busybox:1.24        "sleep 25"             22 hours ago         Exited (0) 22 hours ago                                hungry_wilson     
+   
+b) docker logs e209eec13067
+#docker logs id_from_previous_command
+</pre>
+
+==Docker image layer==
+
+<pre>
+
+
+Docker image layers are stack , 
+
+
+
+ Writeable  ||| Container |||||||||
+ add apache ||| Image |||||||||||||    
+ add emcase ||| Image |||||||||||||
+  ||||| Base Image Redhat Linux |||
+||||||| Bootfs Kernel  ||||||||||||  
+
+
+
+How to check docker cotnainer image run history command 
+
+# docker history busybox:1.24
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+437595becdeb        14 months ago       /bin/sh -c #(nop) CMD ["sh"]                    0 B
+920777304d1d        14 months ago       /bin/sh -c #(nop) ADD file:47ca6e777c36a4cfff   1.113 MB
+
+
+</pre> 
+
+
+<pre> 
+
+
+Major difference in a container and an image 
+is the top writable layer. 
+
+
+</pre>
+
+== How to create your own docker image== 
+
+<pre>
+1- Spin up a container from a base image. 
+2- Install git package in the container
+commit changes made in the container
+#docker  run -it debian.jessie
+
+after installing a debian container we will 
+
+## New host console Debian loaded container ### 
+let install git 
+# apt-get install git -y 
+# exit 
+back to primary host command promt
+3-  Docker commit command would save the changes we made to the docker continer's file system new image 
+docker commit contaier_id repo_name:tag
+
+
+4- first get the id of the contaier
+#docker ps -a 
+docker  ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+f85d49fd02f0        debian:jessie       "/bin/bash"         8 minutes ago       Exited (1) 4 minutes ago                       sharp_blackwell
+
+
+5-  Prepare command for commit
+
+#docker commit f85d49fd02f0 talha/debian:1.00
+
+wait this might take few minutes and give you following output. 
+
+[root@puppet ~]# docker commit f85d49fd02f0 talha/debian:1.00
+0f9531408faaa710119fc96db9f4f0685cbfd1aad51d7e346f65532ee7326347
+[root@puppet ~]#
+
+
+</pre>
+
+
+<pre>
+6- Validation , 
+
+type command docker images and now we can see a newly created image  "talha/debian "
+
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+talha/debian        1.00                0f9531408faa        About a minute ago   218.9 MB
+tomcat              8.0                 8896c3251bb6        7 days ago           357.3 MB
+debian              jessie              b7ccb5a012ed        3 weeks ago          123.5 MB
+busybox             1.24                437595becdeb        14 months ago        1.113 MB
+[root@puppet ~]#
+
+
+</pre>
+
+
+<pre> 
+ 
+ 7-  Now image is ready , lets boat newly created image 
+ 
+ 
+[root@puppet ~]# docker  images
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+talha/debian        1.00                0f9531408faa        3 minutes ago       218.9 MB
+tomcat              8.0                 8896c3251bb6        7 days ago          357.3 MB
+debian              jessie              b7ccb5a012ed        3 weeks ago         123.5 MB
+busybox             1.24                437595becdeb        14 months ago       1.113 MB
+[root@puppet ~]# docker run -it talha/debian:1.00
+root@db0f19f5f358:/# 
+
+
+</pre>
+
+=Ansible=
+
+Ansible as configuration management , 
+How to use playbook with Ansible, 
+
+<pre>
+Install ansible from epel repo on centos
+
+#yum install ansible
+
+
+
+A simple step to verify ansible 
+
+#cp /etc/ansible /etc/ansible-backup 
+#vi /etc/ansible/hosts
+[web]
+192.168.23.29
+:wq
+
+#ansible all -m ping
+tjilal@192.168.2.29 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+
+</pre>
+
+
+==Ansible Playbook Learning == 
+How to configure sample Ansible playbook and install wordpress== 
+
+
+<pre>
+
+cd /etc/ansible/
+git clone https://github.com/ansible/ansible-examples.git
+
+[root@foreman-01 ansible-examples]# ls -lrt
+total 8
+-rw-r--r-- 1 root root  122 Jun  8 16:20 README.md
+drwxr-xr-x 4 root root  158 Jun  8 16:20 jboss-standalone
+drwxr-xr-x 5 root root  159 Jun  8 16:20 lamp_haproxy
+drwxr-xr-x 4 root root  101 Jun  8 16:20 lamp_simple
+drwxr-xr-x 4 root root  101 Jun  8 16:20 lamp_simple_rhel7
+drwxr-xr-x 9 root root 4096 Jun  8 16:20 language_features
+drwxr-xr-x 6 root root  132 Jun  8 16:20 mongodb
+drwxr-xr-x 4 root root  101 Jun  8 16:20 tomcat-memcached-failover
+drwxr-xr-x 4 root root  101 Jun  8 16:20 tomcat-standalone
+drwxr-xr-x 4 root root  188 Jun  8 16:20 windows
+drwxr-xr-x 4 root root  109 Jun  8 16:20 wordpress-nginx_rhel7
+drwxr-xr-x 4 root root  140 Jun  8 16:48 wordpress-nginx
+
+
+</pre> 
+
+
+Our area of interest is wordpress-nginx. 
+This directory will help us to install nginx and wordpress on node "192.168.2.29" 
+
+<pre> 
+
+cd wordpress-nginx
+
+here we have 
+
+-rw-r--r-- 1 root root 1131 Jun  8 16:20 README.md
+-rw-r--r-- 1 root root  217 Jun  8 16:20 LICENSE.md
+-rw-r--r-- 1 root root   30 Jun  8 16:20 hosts.example
+-rw-r--r-- 1 root root  229 Jun  8 16:20 site.yml
+drwxr-xr-x 7 root root   78 Jun  8 16:20 roles
+drwxr-xr-x 2 root root   17 Jun  8 16:36 group_vars
+-rw-r--r-- 1 root root   13 Jun  8 17:09 site.retry
+
+
+</pre>
+
+
+
+Site.yml file contain information about the playbook , what we have in playbook.
+
+<pre>
+cat site.yml
+---
+- name: Install WordPress, MySQL, Nginx, and PHP-FPM
+  hosts: all
+  remote_user: root
+  # remote_user: user
+  # become: yes
+  # become_method: sudo
+
+  roles:
+    - common
+    - mysql
+    - nginx
+    - php-fpm
+    - wordpress
+
+</pre>
+
+Now I will create hosts file ,  and mention where should this configuraiton should install 
+
+
+<pre>
+
+vi hosts 
+
+[wordpress-server]
+192.168.2.29
+
+</pre>
+
+Now we dry run for verification. 
+
+<pre> 
+
+
+ansible-playbook -i hosts site.yml  --check
+
+
+</pre>
+
+If you are satisfied , run same command without --check 
+
+<pre>
+
+ansible-playbook -i hosts site.yml  
+
+</pre>
+
+=Github using examples=
+
+==Global Configuraiton==
+<pre>
+
+git config --global user.name "talhajilal"
+git config --global user.email "talhajilal@gmail.com"
+git remote set-url origin https://talhajilal@github.com/talhajilal/aws.git
+git pull origin
+
+<pre/>
+==MERGE CODE BETWEEN BRANCHES==
+<pre>
+git checkout master
+git branch
+git merge develop-qa --no-ff
+git push
+</pre>
+
+==SEE WHICH ORIGINS ARE SET==
+<pre>
+git 
+git remote -v
+git config --list
+git pull origin master
+</pre>
+== END SEE WHICH ORIGINS ARE SET ==
+==REVERT A MERGE==
+<pre>
+git checkout develop-qa
+git log
+## Read logs and obtain what ever number you want to change" 
+##
+git revert -m 1 <merge-commit>
+git commit -m "Reverted Wordpress Removal"
+git push -u origin develop-qa
+</pre>
+==END REVERT A MERGE==
+<pre>
+
+
+==CREATE A DEV BRANCH==
+<pre>
+git checkout -b develop-qa
+git checkout develop-qa
+git branch 
+
+git checkout -b development
+git checkout development
+git branch
+</pre> 
+==CREATE A DEV BRANCH==
+
+==REMOVING GIT CONFLICT==
+<pre>
+git checkout develop-qa
+git pull origin develop-qa
+git checkout CONFLICT_BRANCH_NAME
+git merge develop-qa
+Open the conflict file, fix the issues
+git add CONFLICT_FILE_PATH_AND_NAME
+git commit -m 'commit message'
+git push origin CONFLICT_BRANCH_NAME
+NOW go and create Pull request again
+</pre>
+
+==END REMOVING GIT CONFLICT==
+<pre>
+Work In progress
+</pre>
+
+
+<pre>
+
+==Some Previous Work notes regarding github==
+
+== Git Hub Administration Commands ==
+How to clone a repo from git, 
+
+<pre>
+cloning my own repo from git. 
+mkdir /opt/git
+cd /opt/git
+git clone https://github.com/talhajilal/test-puppet.git   . 
+
+
+How to remove a file on local git directory and recover from git. 
+
+cd /opt/git/test-puppet/
+
+rm -rf aws_first_boot
+git reset --hard
+
+</pre>
+
+
+How to push a new file to git hub , 
+
+<pre>
+
+== A fine script to upload changes in git directory to git origin==
+
+https://github.com/talhajilal/test-puppet/blob/master/add_new_git_file.sh
+
+
+</pre>
+
+== How to reset root password for xen-vm== 
+
+<pre> 
+
+1- Login to xen-vm , 
+2- Right click on vm that you want to reset root password
+3- shutdown, 
+4- right click on vm
+5- open properties 
+6- click on boot options 
+7- replace ( graphical utf8  ) 
+8 - with ( rw init=/bin/bash   )
+9 - boot vm , 
+10 - # su - 
+11- run command " passwd root " 
+12- enter your new desire password
+13- enter "exit" and "exit" and "exit"
+14- change  ( rw init=/bin/bash  ) with  ( graphical utf8  ) 
+15- Reboot 
+
+</pre>
