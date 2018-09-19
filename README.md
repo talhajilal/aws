@@ -3,7 +3,7 @@ https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-applica
 # aws
 AWS learning and scripting notes
 
-##step 1 - 
+## step 1 - 
 
     vi create_new_instance_with_disk_option.sh
     #/bin/bash
@@ -16,7 +16,7 @@ AWS learning and scripting notes
 
 
 
-##step 2-
+## step 2-
         vi mapping.json
       [
         {
