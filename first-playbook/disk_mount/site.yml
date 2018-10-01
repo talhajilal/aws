@@ -1,0 +1,5 @@
+---
+- name: verify and create and mount # /dev/sdc as /var/lib/docker_1"
+  hosts: localhost
+  roles:
+    - disk_present

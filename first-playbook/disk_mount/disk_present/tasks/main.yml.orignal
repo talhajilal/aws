@@ -1,0 +1,34 @@
+---
+# tasks file for disk_present
+
+- name: Creating disk partition
+  parted: device=/dev/sdc number=1 state=present part_type=primary  state=present
+  register: disk_name
+
+
+- shell: echo "/dev/sdc{{ item.num }} " > /tmp/t
+  with_items: 
+      - "{{ disk_name.partitions }}"
+  when: disk_name.changed
+
+
+
+- name: creating new VG
+  lvg: vg=docker_data_vg pvs=/dev/sdc{{ item.num }} state=present 
+  with_items: 
+      - "{{ disk_name.partitions }}"
+  register: vg_status
+
+- name: Create new LVM Volume 
+  lvol: vg=docker_data_vg lv=docker_data_lv state=present size=10G
+  register: docker_lv
+# when: vg_status.changed
+
+- name: Creating xfs file system
+  filesystem: fstype=xfs dev=/dev/docker_data_vg/docker_data_lv
+  when: docker_lv.changed
+
+- name: Directory status
+  file: path=/var/lib/docker_1 state=directory
+- name: Mount disk
+  mount: name=/var/lib/docker_1 src=/dev/docker_data_vg/docker_data_lv state=mounted  fstype=xfs

@@ -1,0 +1,7 @@
+---
+# vars file for disk_present
+
+disk_name: '/dev/sdc'
+vg_name: 'docker_data_vg'
+lv_name: 'docker_data_lv'
+mount_point: '/var/lib/docker_1'
