@@ -1,0 +1,45 @@
+# tasks file for filesystems
+- name: Checking if volume exist /dev/mapper/{{VG}}-{{LV_NAME}}
+  command: lvdisplay '/dev/mapper/{{VG}}-{{LV_NAME}}'
+  ignore_errors: yes
+  changed_when: false
+  register: lvdisplay
+    
+- name: Creating {{VG}} volume group 
+  lvg:
+    force: no
+    vg: "{{VG}}"
+    pvs: "{{DISK_DEV}}"
+    state: present
+  when: lvdisplay.rc != 0
+
+- name: Creating logical volume {{LV_NAME}}
+  lvol:
+    vg: "{{VG}}"
+    lv: "{{LV_NAME}}"
+    size: "{{SIZE}}"
+    force: no
+    state: present
+  when: lvdisplay.rc != 0
+
+
+- name: Creating xfs file system on {{LV_NAME}}
+  filesystem:
+    force: no 
+    fstype: xfs
+    dev: /dev/mapper/{{VG}}-{{LV_NAME}}
+
+- name: Creating directory for mount point {{MNPT}}
+  file:
+    path: "{{MNPT}}"
+    state: directory
+    
+- name: Mount file system
+  mount:
+    #backup: yes
+    fstype: xfs
+    path: "{{MNPT}}"
+    src: /dev/mapper/{{VG}}-{{LV_NAME}}
+    dump: 1
+    passno: 2
+    state: mounted
