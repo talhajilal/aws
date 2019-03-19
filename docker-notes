@@ -1,0 +1,47 @@
+- name: docker storage config
+  template: src=docker-storage-setup.j2  dest=/etc/sysconfig/docker-storage-setup  owner=root group=root mode=0644 backup=yes
+  register: docker_daemon_storage
+
+
+- name: run storage command only when this configuraiton changed.
+  shell: docker-storage-setup
+  when: docker_daemon_storage.changed
+
+
+
+
+- name: docker configuration file , re-configure
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json  owner=root group=root mode=0644 backup=yes
+  register: docker_daemon_config
+
+
+
+
+- name: docker service start and enabled
+  service: name=docker state=restarted 
+  when: docker_daemon_config.changed
+
+
+
+
+
+- name: Docker authentication variable setting one time for testing
+  template: src=config.json.j2 dest=/root/.docker/config.json owner=root mode=0600 backup=yes
+
+
+
+
+
+###########
+- name: docker configuration file , re-configure
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json  owner=root group=root mode=0644 backup=yes
+  register: docker_daemon_config
+  
+  - name: docker service start and enabled
+  service: name=docker state=restarted 
+  when: docker_daemon_config.changed  or docker_daemon_storage.changed
+  
+  
+  - name: run storage command only when this configuraiton changed.
+  shell: docker-storage-setup
+  when: docker_daemon_storage.changed
