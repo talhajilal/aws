@@ -1,0 +1,24 @@
+template/daemon.json.j2
+
+{ 
+	"insecure-registries" : ["docker.artifactory:8081", "registry:5000"] 
+}
+{
+  "storage-driver": "devicemapper"
+}
+
+
+templates/docker-storage-setup.j2
+
+
+# Controlled by Ansible , this will be over write if you modify this with hands.
+#
+#
+#
+#
+# Edit this file to override any configuration options specified in
+# /usr/share/container-storage-setup/container-storage-setup.
+#
+# For more details refer to "man container-storage-setup"
+CONTAINER_THINPOOL=docker-pool
+VG=app_vg
