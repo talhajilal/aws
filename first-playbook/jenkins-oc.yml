@@ -1,0 +1,22 @@
+---
+# tasks file for docker-run
+- name: verify docker container is running or not. 
+  shell: "sudo docker ps"
+  register: container_status
+
+- debug: msg={{ container_status }}
+  when: container_status.stdout.find('{{container_name}}') == -1 
+
+
+- name: finding abandend or unhealthy container.
+  shell: "sudo docker ps -a" 
+  register: unhealthy_container
+
+- name: Removing unhealthy container, when container is in unhealthy state and container name matched with {{conatainer_name}}. 
+  shell: "sudo docker rm $(sudo docker ps -a | grep -i Exited | awk '{print $1}')"
+  when: unhealthy_container.stdout.find('Exited') != -1 and  unhealthy_container.stdout.find('{{container_name}}') != -1 
+  register: unhealthy_container_treatment
+
+- name: create docker container for  '{{ container_name }}' when it is not running on node. 
+  shell:  "sudo docker run -it -d --network host --name {{container_name}} --env JAVA_OPTS='-Dhudson.TcpSlaveAgentListener.hostName={{ansible_hostname }}.sunlifecorp.com -Dhudson.TcpSlaveAgentListener.port={{publish_jnlp_port}} -Djava.net.preferIPv4Stack=true -Djgroups.bind_addr={{ ansible_ens192['ipv4']['address'] }}' -e JENKINS_OPTS='--httpPort=9091'  -e JENKINS_HA=true  -v {{jenkins_home}}:/var/jenkins_home -v /etc/localtime:/etc/localtime  --memory={{memory}} -u  {{users_group}} {{ docker_image }}"
+  when: container_status.stdout.find('{{container_name}}') == -1  or unhealthy_container_treatment.changed 
