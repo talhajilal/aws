@@ -1,0 +1,17 @@
+---
+- hosts: bitbucket
+  gather_facts: yes
+  ignore_errors: yes
+  roles:
+       -  bitbucket
+  vars:
+    docker_network: stg-bitbucket
+    env: stg
+    label: bitbucket
+    users_group: 1032:100
+    memory: 8192m
+    container_name: "{{env}}-{{label}}"
+    docker_image: "localhost:5000/bitbucket-ssl-uid:4.13.0"
+    data_dir: "/bitbucketShared/bitbucket/shared:/var/atlassian/application-data/bitbucket/shared"
+#    logs_dir: "/bitbucketShared/bitbucket/log-{{ansible_hostname}}:/opt/atlassian/bitbucket/logs"
+    logs_dir: "/bitbucketShared/bitbucket/log-{{ansible_hostname}}:/var/atlassian/application-data/bitbucket/log" 
